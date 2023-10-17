@@ -1,0 +1,85 @@
+nav(id="navbar" class="fixed top-0 w-full bg-bg flex items-center justify-between md:justify-start h-16 px-4 border-b-[1px] border-b-redd md:h-[74px] z-30 md:px-[120px]")
+    div
+        img(src="/imgs/logo.svg" class="w-16 md:w-20" alt="")
+    div(class="hidden md:flex gap-10 mr-14")
+        a(href="/" class=" font-IRanSans text-slate-900 hover:text-red") صفحه اصلی
+        a(href="/products" class=" font-IRanSans text-slate-900 hover:text-red") محصولات
+        a(href="/order" class=" font-IRanSans text-slate-900 hover:text-red") سفارش نقاشی
+        a(href="/artists" class=" font-IRanSans text-slate-900 hover:text-red") هنرمندان
+        a(href="/about" class=" font-IRanSans text-slate-900 hover:text-red") درباره ما
+        a(href="/contact" class=" font-IRanSans text-slate-900 hover:text-red") تماس باما
+
+    div(class="hidden md:flex gap-4 mr-auto")
+        button(id="btn-login", class="bg-reddShade text-white text-sm font-IRanSans px-4 pt-2 pb-2 rounded-sm") ورود به حساب
+        a(href="#" id="btn-signup" class="bg-reddShade text-white text-sm font-IRanSans px-4 pt-2 pb-2 rounded-sm") ایجاد حساب
+
+    span(class="md:hidden")
+        i(id="navbar-menu" class="fa-solid fa-bars text-slate-800 text-2xl ml-1")
+
+div(id="navbar-mobile__wrapper" class="hidden fixed opacity-70 top-0 w-full h-full bg-slate-900 z-40 md:hidden")
+div(id="navbar-mobile" class="hidden fixed pt-10 top-0 flex-col bg-bg h-full w-[80%] rounded-l-lg z-50 animate-[pull_0.3s_ease-in] md:hidden")
+    i(id="navbar-mobile__close" class="fa-solid fa-xmark absolute top-2 left-3 text-slate-800 text-2xl")
+    div(class="text-center")
+        div(class="mx-auto border w-28 h-28 rounded-full overflow-hidden")
+            img(src="/imgs/profile.png" alt="Profile" class="w-full")
+        p(class="font-IRanSans text-slate-800 text-lg mt-2") محمد رضا قاسمی
+
+    div(class="text-slate-800 mr-8")
+        //- <!-- <a
+        //-     href="#"
+        //-     class="flex justify-start items-center w-[70%]  mt-4 pr-1 rounded-lg hover:bg-redColorShade"
+        //- >
+        //-     <LiaShoppingCartSolid class="text-3xl ml-2" />
+        //-     <span class="text-xl font-sabaLight mb-[6px]">سبد خرید</span>
+        //- </a>
+        //- <a
+        //-     href="#"
+        //-     class="flex justify-start items-center w-[70%] pr-1 rounded-lg hover:bg-redColorShade"
+        //- >
+        //-     <GiNestedHearts class="text-2xl ml-3 mt-1" />
+        //-     <span class="text-xl font-sabaLight mb-[6px]">لیست علایق</span>
+        //- </a>
+        //- <a
+        //-     href="#"
+        //-     class="flex justify-start items-center w-[70%]  mt-4 pr-1 rounded-lg hover:bg-redColorShade"
+        //- >
+        //-     <CiSettings class="text-2xl ml-2" />
+        //-     <span class="text-xl font-sabaLight mb-[6px]">
+        //-     تنظیمات حساب
+        //-     </span>
+        //- </a> -->
+
+        a(href="#" class="flex justify-start items-center w-[70%] mt-4 px-2 pt-1 pb-1 rounded-lg hover:bg-redColorShade")
+            i(class="fa-solid fa-user-plus text-xl ml-2")
+            span(class="font-IRanSans") ایجاد حساب
+
+        a(href="#" class="flex justify-start items-center w-[70%] mt-2 px-2 pt-1 rounded-lg hover:bg-redColorShade")
+            i(class="fa-solid fa-right-to-bracket text-xl ml-2 mr-1")
+            span(class="font-IRanSans mb-[6px]") ورود به حساب
+
+    hr(class="w-[80%] mx-auto mt-3 border text-slate-700")
+    div(class="mx-8 text-slate-800 mt-4") 
+        ul
+            li(class="flex justify-start items-center font-IRanSans  px-2 pt-1 pb-1 rounded-lg hover:bg-redColorShade")
+                i(class="fa-solid fa-house text-xl ml-2")
+                a(href="/" class="inline-block w-full") صفحه اصلی 
+
+            li(class=" flex justify-start items-center font-IRanSans  px-2 pt-1 mt-1 pb-1 rounded-lg hover:bg-redColorShade")
+                i(class="fa-solid fa-palette text-xl ml-3")
+                a(href="#" class="inline-block w-full") تابلوها
+
+            li(class=" flex justify-start items-center font-IRanSans  px-2 pt-1 mt-1 pb-1 rounded-lg hover:bg-redColorShade") 
+                i(class="fa-solid fa-basket-shopping text-xl ml-2")
+                a(href="/order" class="inline-block w-full") سفارش نقاشی
+
+            li(class="flex justify-start items-center font-IRanSans px-2 pt-1 mt-1 pb-1 rounded-lg hover:bg-redColorShade")
+                i(class="fa-solid fa-clipboard-user text-2xl ml-[10px] mr-[2px]")
+                a(href="#" class="inline-block w-full") هنرمندان
+
+            li(class=" flex justify-start items-center font-IRanSans  px-2 pt-1 mt-1 pb-1 rounded-lg hover:bg-redColorShade")
+                i(class="fa-solid fa-map text-xl ml-2")
+                a(href="#" class="inline-block w-full") درباره ما
+
+            li(class=" flex justify-start items-center font-IRanSans  px-2 pt-1 mt-1 pb-1 rounded-lg hover:bg-redColorShade")
+                i(class="fa-solid fa-phone-volume text-xl ml-2")
+                a(href="#" class="inline-block w-full") تماس با ما

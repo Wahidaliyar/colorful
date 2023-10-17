@@ -1,0 +1,39 @@
+extends base
+
+block content
+    section(class="pt-32 md:w-[80%] mx-auto")
+        div(class="relative mx-auto w-56 text-center") 
+            select(name="tech" id="tech" class="bg-slate-700 text-white text-sm md:text-base p-1 font-IRanSans px-3 md:px-5 rounded-sm outline-none")
+                option(value="1") پنسل رنگی
+                option(value="1") پنسل سیاه
+                option(value="1") خودکار رنگی
+                option(selected value="1") آبرنگ
+                option(value="1") سیاه قلم
+
+        p(class="font-IRanSans text-sm md:text-base text-center mt-4") 1 - 10 آیتم از 56 آیتم
+
+        div(class="flex flex-col md:flex-row md:flex-wrap items-center md:gap-10 md:justify-start")
+
+            each artwork in artworks
+                div(class="w-[80%] md:w-[28%] p-3 rounded-sm mt-6 bg-white shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+                    div(class="relative group")
+                        img(src=`/imgs/artwork/${artwork.image}` alt=`${artwork.name}` class="w-full object-cover rounded-ss-md rounded-se-md")
+                        div(class="hidden group-hover:block")
+                            div(class="absolute top-2 right-2 bottom-2 left-2 flex justify-center items-center bg-white rounded-md bg-opacity-60")
+                                a(href=`/products/${artwork._id}` class="text-slate-700 font-IRanSans py-2 px-6 border-2 border-slate-700 hover:bg-slate-700 hover:text-white") مشاهده جزئیات
+
+                    h5(class="text-right font-IRanSans text-lg md:text-xl font-bold mt-2 mr-1")= `${artwork.name}`
+                    p(class="font-dastnevis mr-1 mt-1 text-lg text-slate-500")= `تکنیک ${artwork.category}`
+
+                    p(class="ltr-div text-left text-red font-semibold text-xl")= `${artwork.price} Afs`
+
+            
+
+
+        div(class="flex justify-center mt-8")
+            nav(class="inline-flex")
+                button(id="prevBtn" class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-reddShade text-black" disabled) قبلی
+                button(id="page1Btn" class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-red text-white") 1
+                button(id="page2Btn" class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-reddShade text-black") 2
+                button(id="page3Btn" class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-reddShade text-black") 3
+                button(id="nextBtn" class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-reddShade text-black") بعدی

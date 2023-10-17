@@ -1,0 +1,78 @@
+extends base
+
+block content
+    //- HERO
+    section
+        div(class="relative h-[700px] w-full bg-image2") 
+            div(class="w-full h-full bg-redd bg-opacity-60")
+                div(class="absolute top-0 h-full w-full bg-opacity-80")
+
+                    div(id="slider-1" class="hidden relative flex flex-col justify-center items-center w-full h-full text-center")
+                        h1(class="font-mehr text-white text-[52px] md:text-[60px] leading-normal") سفارش&nbsp;
+                            span(class="before:block text-white before:absolute before:-right-1 md:before:-right-4 before:inset-2 before:-skew-x-12 before:bg-red relative px-2")
+                                span(class="relative") نقاشی&nbsp;
+                            br(class="md:hidden")
+                            span دلخواه شما
+
+                        p(class="font-dastnevis text-2xl md:text-3xl text-white mt-3") در تکنیک‌های مختلف
+                        a(href="/order" class="font-IRanSans text-lg bg-red text-white px-6 pt-3 pb-3 mt-6 border border-white rounded-sm md:px-12") ثبت درخواست 
+    
+                    div(id="slider-2" class="relative flex flex-col justify-center items-center w-full h-full text-center")
+                        h1(class="font-mehr text-white text-[52px] md:text-[60px] leading-normal")
+                            span فروش انواع 
+                            br(class="md:hidden")
+                            span تابلوی
+                            span(class="before:block text-white before:absolute before:-right-1 md:before:-right-1 before:inset-2 before:-skew-x-12 before:bg-red relative px-2")
+                                span(class="relative") نقاشی
+
+                        p(class="font-dastnevis text-2xl md:text-3xl text-white mt-3") در اندازه‌های مختلف
+                        a(href="/products" class="font-IRanSans text-lg bg-red text-white px-6 pt-3 pb-3 mt-6 border border-white rounded-sm md:px-12") مشاهده تابلوها
+
+    //- CATEGORY
+    section(class="flex flex-col md:flex-row pt-6 md:pt-14 md:px-[120px] md:justify-between items-center md:mt-8")
+        //- CARDS
+        div(class="w-[70%] md:w-[23%] mt-4  border border-white rounded-md p-1 pb-5 flex flex-col items-center shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div(class="w-full border-red rounded-md overflow-hidden flex justify-center")
+                img(src="imgs/abrangpainting.png"  alt="" class="w-full")
+
+            a(href="#" class="font-IRanSans text-red text-base md:text-lg pt-2 pb-2 px-8 mt-6 border border-red") پنسل ساده
+
+        div(class="w-[70%] md:w-[23%] mt-4  border border-white rounded-md p-1 pb-5 flex flex-col items-center shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div(class="w-full border-red rounded-md overflow-hidden flex justify-center")
+                img(src="imgs/abrangpainting.png"  alt="" class="w-full")
+
+            a(href="#" class="font-IRanSans text-red text-base md:text-lg pt-2 pb-2 px-8 mt-6 border border-red") پنسل رنگی
+
+
+        div(class="w-[70%] md:w-[23%] mt-4  border border-white rounded-md p-1 pb-5 flex flex-col items-center shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div(class="w-full border-red rounded-md overflow-hidden flex justify-center")
+                img(src="imgs/abrangpainting.png"  alt="" class="w-full")
+
+            a(href="#" class="font-IRanSans text-red text-base md:text-lg pt-2 pb-2 px-8 mt-6 border border-red") پنسل رنگی
+
+        div(class="w-[70%] md:w-[23%] mt-4  border border-white rounded-md p-1 pb-5 flex flex-col items-center shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div(class="w-full border-red rounded-md overflow-hidden flex justify-center")
+                img(src="imgs/abrangpainting.png"  alt="" class="w-full")
+
+            a(href="#" class="font-IRanSans text-red text-base md:text-lg pt-2 pb-2 px-8 mt-6 border border-red") پنسل رنگی
+
+    //- NEWEST
+    section(class="text-center mt-[90px] md:mt-[120px]")
+        h2(class="inline-block text-3xl md:text-4xl font-mehr border-b-4 border-red") جدیدترین‌ها
+        div(class="flex flex-wrap justify-center md:justify-between w-[90%] md:w-[80%] md:px-[2%] mx-auto mt-4")
+            //- Cards
+            each artwork in TenNewArtwork
+                div(class="w-[80%] md:w-[23%] p-1 rounded-sm mt-4 border border-slate-200 shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+                    div(class="relative group")
+                        img(src=`/imgs/artwork/${artwork.image}` alt=`${artwork.name}` class="w-full object-cover rounded-sm")
+                        div(class="hidden group-hover:block")
+                            div(class="absolute top-2 right-2 bottom-2 left-2 flex justify-center items-center bg-white rounded-sm bg-opacity-60")
+                                a(href=`/products/${artwork._id}` class="text-slate-700 font-IRanSans text-sm pt-2 pb-2 px-2 border border-1 border-slate-700 hover:bg-slate-700 hover:text-white") مشاهده جزئیات
+
+                    h5(class="text-right font-IRanSans mt-2 md:text-base font-semibold")= `${artwork.name}`
+                    p(class="text-right font-dastnevis text-slate-500")= `تکنیک ${artwork.category}`
+                    p(class="font-IRanSans text-left text-redColor text-sm md:text-base")= `${artwork.price} افغانی`
+      
+        a(href="/products" class="text-white font-IRanSans inline-block mt-8 pt-2 pb-2 px-6 md:px-8 bg-red rounded-sm shadow-[1px_2px_4px_0_rgba(0,0,0,0.4)]") نمایش همه 
+
+    script(src="/js/hero.js")

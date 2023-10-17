@@ -1,0 +1,15 @@
+div(id="login-container", class="hidden fixed top-0 left-0 right-0 bottom-0 bg-slate-700 bg-opacity-60 backdrop-blur-[2px] z-50 flex justify-center pt-28 md:pt-36 pb-8") 
+    div(class="relative w-[80%] md:w-[28%] h-[56%] md:h-[80%] bg-bg rounded-md px-4 md:px-6 py-8 text-center")
+        i(id="btn-login-close" class="fa-solid fa-xmark absolute top-2 right-3 text-2xl cursor-pointer")
+        h1(class="inline-block text-2xl font-mehr border-b-4 border-red")  ورود به حساب
+
+        form(class="flex flex-col items-start py-4 px-2 mt-4 md:mt-2")
+            label(for="email" class="font-IRanSans mr-1") ایمیل
+            input(type="email" name="email" id="email-login" placeholder="example@gmail.com" class="w-full  bg-bgShade px-2 pt-1 pb-[5px] outline-none rounded-sm mt-1")
+
+            label(for="password" class="font-IRanSans mt-2 mr-1") رمز عبور
+            input(type="password" name="password" id="password-login", placeholder="••••••", class="w-full bg-bgShade px-2 py-1 outline-none rounded-sm mt-1")
+
+            button(class="font-IRanSans w-full md:w-auto text-lg text-white self-center mt-8 md:mt-6 pt-[2px] pb-2 px-16 bg-red rounded-sm") ورود
+        
+        a(href="#", class="font-IRanSans text-sm hover:underline active:underline") رمز عبور خود را فراموش کرده‌اید؟

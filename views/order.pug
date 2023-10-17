@@ -1,0 +1,70 @@
+extends base
+
+block content
+    section(class="pt-24 md:pt-32 text-center")
+        h1(class="inline-block text-2xl md:text-3xl font-mehr border-b-4 border-red") درخواست نقاشی
+
+        div(class="text-justify px-6 mt-6 md:mt-10")
+            p(class="font-IRanSans text-sm md:text-base md:w-[80%] leading-7 md:leading-8 md:mx-auto") برای ثبت سفارش نقاشی می‌توانید تصویر مدل مورد نظر را با کیفیت خوب و رنگی ضمینه کرده و از طریق فرم زیر جهت برآورد هزینه و ثبت سفارش برای ما ارسال نمایید. لازم به ذکر است بعد از برآورد هزینه و اعلام آن از طریق شماره تماس و یا ایمیل دریافتی از طرف شما در صورت تمایل میتوانید سفارش خود را قاب شده از انواع مختلف قاب و انواع شیشه به انتخاب خود و با هماهنگی قبلی و بسته بندی شده دریافت نمایید.
+  
+            div(class="w-full md:w-[50%] md:mx-auto bg-white shadow-lg rounded-lg px-4 md:px-10 pb-8 pt-3 mt-6 text-center")
+                form(class="flex flex-col items-start  py-4 px-2 mt-4")
+                    label(for="name" class="font-IRanSans md:font-semibold px-2") نام
+                    input(type="text" name="name" id="name" placeholder="علی" class="w-full font-IRanSans bg-slate-200 px-2 py-1 outline-none rounded-md mt-1")
+  
+                    label(for="lastname" class="font-IRanSans md:font-semibold px-2 mt-4") نام خانوادگی
+                    input(type="text" name="lastname" id="lastname" placeholder="علوی" class="w-full font-IRanSans  bg-slate-200 px-2 py-1 outline-none rounded-md mt-1")
+  
+                    label(for="phonenumber" class="font-IRanSans md:font-semibold px-2 mt-4") شماره تماس
+                    input(type="text" name="phonenumber" id="phonenumber" placeholder="+773102910" class="w-full ltr-div text-right font-IRanSans bg-slate-200 px-2 pt-[6px] pb-[3px] outline-none rounded-md mt-1")
+  
+                    label(for="email" class="font-IRanSans md:font-semibold px-2 mt-4") آدرس ایمیل
+                    input(type="email" name="email" id="email" placeholder="example@gmail.com" class="w-full ltr-div text-right  bg-slate-200 px-2 pt-1 pb-[6px] outline-none rounded-md mt-1")
+  
+                    label(class="font-IRanSans md:font-semibold px-2 mt-4") انتخاب فایل جهت بررسی
+
+                    label(for="file" class="bg-slate-700 text-sm text-white px-4 py-2 rounded-sm cursor-pointer font-IRanSans mt-2") انتخاب عکس
+                    input(type="file" name="file" id="file" class="hidden")
+  
+                    label(for="height" class="font-IRanSans md:font-semibold px-2 mt-4") ابعاد تابلو (طول)
+
+                    select(class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="height" id="height")
+                        option(value="25") 25 سانتی متر
+                        option(value="30") 30 سانتی متر
+                        option(value="35") 35 سانتی متر
+                        option(value="40") 40 سانتی متر
+                        option(value="45") 45 سانتی متر
+                        option(value="50") 50 سانتی متر
+                        option(value="55") 55 سانتی متر
+                        option(value="60") 60 سانتی متر
+                        option(value="65") 65 سانتی متر
+                        option(value="70") 70 سانتی متر
+
+                    label(for="width" class="font-IRanSans md:font-semibold px-2 mt-4") ابعاد تابلو (عرض)
+                    select(class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="width" id="width")
+                        option(value="25") 25 سانتی متر
+                        option(value="30") 30 سانتی متر
+                        option(value="35") 35 سانتی متر
+                        option(value="40") 40 سانتی متر
+                        option(value="45") 45 سانتی متر
+                        option(value="50") 50 سانتی متر
+                        option(value="55") 55 سانتی متر
+                        option(value="60") 60 سانتی متر
+                        option(value="65") 65 سانتی متر
+                        option(value="70") 70 سانتی متر
+  
+                    label(for="tech" class="font-IRanSans md:font-semibold px-2 mt-4") تکنیک
+                    select(class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="tech" id="tech")
+                        option(value="zoghal") پنسل سیاه
+                        option(value="30") پنسل رنگی
+                        option(value="35") خودکار تک‌رنگ
+                        option(value="40") خودکار رنگی
+                        option(value="45") سیاه قلم
+                        option(value="50") آبرنگ
+                        option(value="55") ذغالی
+                        option(value="60") نقطه‌چین
+  
+                    label(for="description" class="font-IRanSans md:font-semibold px-2 mt-4") توضیحات
+                    textarea(name="description" id="description" cols="30" rows="5" class="w-full font-IRanSans text-sm bg-slate-200 px-2 pt-1 pb-[6px] outline-none rounded-md mt-1")
+  
+                    button(class="font-IRanSans md:font-semibold md:text-lg text-white self-center mt-8 pt-2 pb-2 px-8  bg-red rounded-sm") ثبت درخواست
