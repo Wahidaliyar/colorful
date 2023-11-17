@@ -1,0 +1,105 @@
+extends dashbase 
+
+block content 
+    div(class="w-[85%] mr-[15%] pt-24 px-16")
+        div(class="flex justify-between items-center")
+            form(class="font-IRanSans flex-[2]")
+                label(for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only") Search
+                div(class="relative")
+                    //- div(class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none")
+                        i(class="fa-solid fa-magnifying-glass text-slate-400")
+
+                    //- input(type="search" id="default-search" class="block w-full p-[14px] pr-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 outline-none focus:border-redShade" placeholder="جستجو..." required)
+                    //- <button
+                    //- type="submit"
+                    //- class="text-white absolute left-2 bottom-1.5 bg-red font-medium rounded-md text-sm px-4 py-[9px]"
+                    //- >
+                    //- جستجو
+                    //- </button>
+
+            div(class="flex-1 flex justify-end")
+                a(href="/dashboard/artists/new" class="font-IRanSans text-white py-2 px-4 bg-red rounded-sm") ایجاد هنرمند جدید
+
+        div(class="relative mt-4 pb-4 overflow-x-auto rounded-md shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            table(class="w-full text-sm text-right")
+                thead(class="font-IRanSans text-base text-slate-200 bg-redd")
+                    tr
+                        th(scope="col" class="px-6 py-4") #
+                        th(scope="col" class="px-6 py-4") عکس
+                        th(scope="col" class="px-6 py-4") نام هنرمند
+                        th(scope="col" class="px-6 py-4") ایمیل
+                        th(scope="col" class="px-6 py-4") شماره تماس
+                        th(scope="col" class="px-6 py-4") 
+                            span(class="sr-only") info
+                        
+                tbody(class="font-IRanSans text-gray-900")
+                    if Array.isArray(artists)
+                        each artist in artists
+                            tr(class="bg-bgShade border-b")
+                                td(class="px-6 py-4 font-semibold")= startIndex
+                                td(scope="row" class="px-6 font-medium whitespace-nowrap")
+                                    img(src=`/imgs/artist/${artist.image}` alt="Profile" class="w-10 h-10 rounded-full object-cover")
+                                td(class="px-6 py-4 font-semibold")= artist.name
+                                td(class="px-6 py-4")= artist.email
+                                td(class="px-6 py-4")= artist.phone
+                                td(class="px-6 py-4 text-right")
+                                    a(href=`/dashboard/artists/${artist._id}` class="bg-redd text-white px-3 py-1 rounded-md hover:underline") جزئیات
+
+                            - startIndex = startIndex + 1
+                    
+            nav(aria-label="Page navigation" class="mt-4 flex justify-end w-[97%]")
+                ul(class="flex items-center -space-x-px h-8 text-sm font-bold")
+                    if num != 1
+                        li
+                            a(href=`/dashboard/artists?page=${prev}` style=`${!prev ? "pointer-events: none" : ""}` class="flex items-center justify-center px-3 h-8 ml-0 leading-tight border rounded-r-lg text-red border-red hover:bg-bgShade")
+                                span(class="sr-only") Previous
+                                svg(class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10")
+                                    path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4")
+
+                        each page in num
+                            li
+                                a(href=`/dashboard/artists?page=${page}` class=`flex items-center justify-center px-3 h-8 leading-tight border border-red hover:bg-bgShade ${page == currentPage ? 'bg-red text-bg hover:bg-redd' : "text-red hover:bg-bgShade"}`)= page
+                    
+                        
+                        li
+                            a(href=`/dashboard/artists?page=${next}` style=`${!next ? "pointer-events: none" : ""}` class="flex items-center justify-center px-3 h-8 leading-tight border rounded-l-lg text-red border-red hover:bg-bgShade")
+                                span(class="sr-only") Next
+                                svg(class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10")
+                                    path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4")
+
+
+    div(id="add-artwork-container" style="z-index: 200;" class="hidden fixed left-0 top-0 bottom-0 right-0 font-IRanSans bg-slate-600 bg-opacity-60 backdrop backdrop-blur-sm")
+        div(class="relative w-[60%] mx-auto mt-32 bg-white rounded-sm flex p-6 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            i(id="add-artwork-container-close-btn" class="fa-solid fa-xmark absolute text-xl top-1.5 right-2 cursor-pointer")
+            div
+                div(class="flex")
+                    table(class="ml-6")
+                        tr
+                            td(class="w-24 leading-10") نام:
+                            td
+                                input(type="text" name="n_a_name" id="n_a_name" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td(class="leading-10") عکس:
+                            td
+                                label(for="n_a_image" class="bg-slate-700 text-white px-6 py-2 text-sm cursor-pointer rounded-sm") انتخاب عکس
+                                input(type="file" name="n_a_image" id="n_a_image" class="hidden")
+                        tr
+                            td(class="leading-10") ایمیل:
+                            td
+                                input(type="email" name="n_a_email" id="n_a_email" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                    table
+                        tr
+                            td(class="w-32") لینک واتساپ:
+                            td
+                                input(type="text" name="n_a_whatsapp" id="n_a_whatsapp" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td لینک انستاگرام:
+                            td
+                                input(type="text" name="n_a_instagram" id="n_a_instagram" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td لینک فیسبوک:
+                            td
+                                input(type="text" name="n_a_facebook" id="n_a_facebook" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+
+                textarea(name="n_a_bio" id="n_a_bio" placeholder="بیوگرافی" cols="30" rows="7" class="bg-slate-200 w-full mt-2 px-2 py-1 text-sm border-none outline-none")
+                button(id="add-artwork-btn" class="bg-slate-700 text-white px-10 py-2 rounded-sm mt-2 hover:scale-105 transition-all duration-300") ثبت

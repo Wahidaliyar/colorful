@@ -1,0 +1,145 @@
+extends dashbase 
+
+block content 
+    div(class="w-[85%] mr-[15%] pt-24 px-16" style="z-index: 10; padding-bottom: 4rem;")
+        div(class="flex justify-between items-center")
+            form(class="font-IRanSans flex-[2]")
+                label(for="prodcuts-search" class="mb-2 text-sm font-medium text-gray-900 sr-only") Search
+                div(class="relative")
+                    div(class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none")
+                        i(class="fa-solid fa-magnifying-glass text-slate-400")
+
+                    input(type="search" id="products-search" class="block w-full p-[14px] pr-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 outline-none focus:border-redShade" placeholder="جستجو...")
+                    button(id="products-search-btn" class="text-white absolute left-2 bottom-1.5 bg-red font-medium rounded-md text-sm px-4 py-[9px]") جستجو
+
+            div(class="flex-1 flex justify-end")
+                a(href="/dashboard/products/new" class="font-IRanSans text-white py-2 px-4 bg-red rounded-sm") اضافه کردن تابلوی جدید
+
+        div(class="relative mt-4 pb-4 overflow-x-auto rounded-md shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            table(class="w-full text-sm text-right")
+                thead(class="font-IRanSans text-base text-slate-200 bg-redd")
+                    tr
+                        th(scope="col" class="px-6 py-4") #
+                        th(scope="col" class="px-6 py-4") نام تابلو
+                        th(scope="col" class="px-6 py-4") هنرمند
+                        th(scope="col" class="px-6 py-4") تکنیک
+                        th(scope="col" class="px-6 py-4") قیمت
+                        th(scope="col" class="px-6 py-4") 
+                            span(class="sr-only") Info
+
+                tbody(id="product-table" class="font-IRanSans text-gray-900")
+                    if Array.isArray(artworks)
+                        each artwork in artworks
+                            tr(class="bg-bgShade border-b")
+                                td(class="px-6 py-4 font-semibold")= startIndex
+                                td(scope="row" class="px-6 py-4 font-semibold whitespace-nowrap")= artwork.name
+                                td(class="px-6 py-4")= artwork.artist.name  
+                                td(class="px-6 py-4")= artwork.category
+                                td(class="px-6 py-4")= artwork.price
+                                    |  افغانی  
+                                td(class="px-6 py-4 text-right")
+                                    a(href=`/dashboard/products/${artwork._id}` class="desc-btn bg-redd text-white px-3 py-1 rounded-md hover:underline") جزئیات
+                            - startIndex = startIndex + 1
+                    if artworks.length === 0
+                        tr
+                            td(class="pt-2 px-3") موردی یافت نشد!
+
+            nav(aria-label="Page navigation" class="mt-4 flex justify-end w-[97%]")
+                ul(class="flex items-center -space-x-px h-8 text-sm font-bold")
+
+                    if num != 1
+                        li
+                            a(href=`/dashboard/products?page=${prev}` style=`${!prev ? "pointer-events: none" : ""}` class="flex items-center justify-center px-3 h-8 ml-0 leading-tight border rounded-r-lg text-red border-red hover:bg-bgShade")
+                                span(class="sr-only") Previous
+                                svg(class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10")
+                                    path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4")
+                        
+                        each page in num
+                            li
+                                a(href=`/dashboard/products?page=${page}` class=`flex items-center justify-center px-3 h-8 leading-tight border border-red hover:bg-bgShade ${page == currentPage ? 'bg-red text-bg hover:bg-redd' : "text-red hover:bg-bgShade"}`)= page
+                    
+                        li
+                            a(href=`/dashboard/products?page=${next}` style=`${!next ? "pointer-events: none" : ""}` class="flex items-center justify-center px-3 h-8 leading-tight border rounded-l-lg text-red border-red hover:bg-bgShade")
+                                span(class="sr-only") Next
+                                svg(class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10")
+                                    path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4")
+
+
+
+    //- div(id="single-artwork" class="hidden bg-slate-700 bg-opacity-70 fixed top-0 bottom-0 left-0 right-0" style="z-index: 200")
+        div(class="bg-white relative p-10 w-[50%] mx-auto mt-12 rounded-md")
+            i(id="singleArtworkCloseBtn" class="fa-solid fa-xmark absolute top-2 right-3 text-2xl cursor-pointer text-slate-800")
+            div(class="flex")
+                div(class="h-80")
+                    img(id="artwork-image" class="h-full" src="/imgs/abrangpainting.png" alt="" )
+                div(class="mr-4 flex font-IRanSans mt-5 text-sm")
+                    div
+                        p نام تابلو
+                        p(class="mt-2") هنرمند
+                        p(class="mt-2") تکنیک
+                        p(class="mt-2") جنس ورق
+                        p(class="mt-2") طول تابلو
+                        p(class="mt-2") عرض تابلو
+                        p(class="mt-2") قیمت 
+                    div(class="mr-5")
+                        p(id="artwork-name") مسجد
+                        p(class="mt-2" id="artwork-artist") محمد رضا قاسمی
+                        p(class="mt-2" id="artwork-category") آبرنگ
+                        p(class="mt-2" id="artwork-paper") کانسون
+                        p(class="mt-2" id="artwork-height") 30 سانتی متر
+                        p(class="mt-2" id="artwork-width") 20 سانتی متر
+                        p(class="mt-2" id="artwork-price") 1500 افغانی
+      
+                div(class="self-end flex flex-col")
+                    button(class="font-IRanSans bg-slate-800 text-white px-6 py-2 rounded-sm cursor-pointer") ویرایش
+                    button(class="font-IRanSans bg-red text-white mt-2 py-2 rounded-sm cursor-pointer") حذف
+        
+            div(class="font-IRanSans mt-4")
+                p(class="font-mehr font-semibold text-2xl") توضیحات
+                p(class="text-justify leading-7 mt-1 text-sm leading-7" id="artwork-desc")  گل و مرغ سنتی ایران و سایر کشورهای دیگر با توجه به نوع طراحی آن قابل تمیز از یکدیگر است . یکی از این موارد آثار سبک هندی است که نمونه ای از آن را در اینجا مشاهده می کنید . هند به واسطه موقعیت جغرافیایی خود در بین کشورهایی مانند چین و ایران به عنوان کشوری مستقل درزمینه نقاشی ،سبک خاص خود را دارا می باشد که با تحقیق و بررسی آثار هندی به راحتی قابل تمیز است.                
+    
+    //- div(id="addArtwork-container" class="hidden bg-slate-700 bg-opacity-70 fixed top-0 left-0 bottom-0 right-0" style='z-index: 200;')
+        form(class="bg-white relative p-10 flex flex-col w-[60%] mx-auto mt-20 rounded-md")        
+            i(id="addArtwork-close" class="fa-solid fa-xmark absolute top-3 right-3 text-xl cursor-pointer text-slate-800")
+            div(class="flex")
+                input(type="text" id="name" name="name" placeholder="نام تابلو" class="w-full font-IRanSans bg-slate-300 px-2 py-2 outline-none rounded-md ml-3")
+                input(type="number" id="price" name="price" placeholder="قیمت" required oninvalid="function() { this.setCustomValidity('Please enter your name.'); }" class="w-full font-IRanSans bg-slate-300 px-2 py-2 outline-none rounded-md")
+            div(class="flex")
+                input(type="number" id="width" name="width" placeholder="عرض تابلو" class="w-full font-IRanSans bg-slate-300 px-2 py-2 outline-none rounded-md mt-2 ml-3")
+                input(type="number" id="height" name="height" placeholder="طول تابلو" class="w-full font-IRanSans bg-slate-300 px-2 py-2 outline-none rounded-md mt-2")
+            div(class="w-[49.1%]")
+                input(type="text" id="material" name="material" placeholder="جنس ورق" class="w-full font-IRanSans bg-slate-300 px-2 py-2 outline-none rounded-md mt-2")
+            div(class="flex items-center justify-between")
+                div
+                    label(for="adminTech" class="font-IRanSans px-2 mt-4") تکنیک
+                    select(name="adminTech" id="adminTech" class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer")
+                        option(value="pencil-siya") پنسل سیاه
+                        option(value="30") پنسل رنگی
+                        option(value="35") خودکار تک‌رنگ
+                        option(value="40") خودکار رنگی
+                        option(value="45") سیاه قلم
+                        option(value="50") آبرنگ
+                        option(value="55") ذغالی
+                        option(value="60") نقطه‌چین
+
+                div
+                    label(for="artist" class="font-IRanSans px-2 mt-4") هنرمند
+                    select(name="tech" id="tech" class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer")
+                        option(value="20") پنسل سیاه
+                        option(value="30") پنسل رنگی
+                        option(value="35") خودکار تک‌رنگ
+                        option(value="40") خودکار رنگی
+                        option(value="45") سیاه قلم
+                        option(value="50") آبرنگ
+                        option(value="55") ذغالی
+                        option(value="60") نقطه‌چین
+
+
+                div
+                    label(htmlFor="artImage" class="font-IRanSans px-2 mt-4") عکس تابلو
+                    label(for="artImage" class="bg-slate-700 text-sm text-white px-4 py-2 rounded-sm cursor-pointer font-IRanSans") انتخاب عکس
+                    input(type="file" name="artImage" id="artImage" class="hidden")
+
+            textarea(name="artDesc" id="artDesc" placeholder="توضیحات" cols="30" rows="7" class="bg-slate-300 rounded-sm mt-4 py-1 px-2 font-IRanSans text-sm outline-none border-none")
+            button(id="addArtwork-btn" class="font-IRanSans md:font-semibold md:text-lg text-white self-center mt-8 pt-2 pb-2 px-8 md:px-12 bg-red rounded-sm") ثبت تابلو
+

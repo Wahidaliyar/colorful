@@ -1,0 +1,55 @@
+extends dashbase 
+
+block content
+    div( class="mr-[15%] pt-10 px-16")
+        div(class="relative w-[80%] mx-auto mt-32 bg-white rounded-sm flex p-8 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            div(class="font-IRanSans mx-auto")
+                div(class="flex text-right")
+                    table(class="ml-14")
+                        tr
+                            td(class="w-24") نام تابلو
+                            td
+                                input(type="text" name="a_p_name" id="a_p_name" class="bg-slate-200 w-96 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td جنس ورق:
+                            td
+                                input(type="text" name="a_p_paper" id="a_p_paper" class="bg-slate-200 w-96 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td قیمت:
+                            td
+                                input(type="text" name="a_p_price" id="a_p_price" class="bg-slate-200 w-96 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr(class="leading-7")
+                            td عکس:
+                            td
+                                label(for="a_p_image" class="bg-slate-700 text-white px-6 py-1 text-sm cursor-pointer rounded-sm") انتخاب عکس 
+                                input(type="file" name="a_p_image" id="a_p_image" class="hidden")
+                    table
+                        tr
+                            td طول تابلو
+                            td
+                                input(type="text" name="a_p_height" id="a_p_height" class="bg-slate-200 mt-1 w-[148px] rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td عرض تابلو
+                            td  
+                                input(type="text" name="a_p_width" id="a_p_width" class="bg-slate-200 mt-1 w-[148px] rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr(class="leading-10")
+                            td(class="w-24") تکنیک
+                            td
+                                select(class="font-IRanSans bg-slate-700 inline-block w-36 text-sm text-white py-[5px] outline-none rounded-sm cursor-pointer" name="a_p_tech" id="a_p_tech")
+                                    option(value="پنسل سیاه" selected) پنسل سیاه
+                                    option(value="پنسل رنگی") پنسل رنگی
+                                    option(value="خودکار تک‌رنگ") خودکار تک‌رنگ
+                                    option(value="خودکار رنگی") خودکار رنگی
+                                    option(value="سیاه قلم") سیاه قلم
+                                    option(value="آبرنگ") آبرنگ
+                                    option(value="ذغالی") ذغالی
+                                    option(value="نقطه‌چین") نقطه‌چین           
+                        tr
+                            td هنرمند
+                            td
+                                select(class="font-IRanSans bg-slate-700 text-xs text-white inline-block w-36 py-[5px] outline-none rounded-sm cursor-pointer" name="a_p_artist" id="a_p_artist")
+                                    each artist in artists
+                                        option(value=`${artist._id}`)= artist.name 
+
+                textarea(name="a_p_desc" id="a_p_desc" placeholder="توضیحات" cols="30" rows="7" class="bg-slate-200 w-full mt-4 px-2 py-1 text-sm border-none outline-none")
+                button(id="n_p_btn" class="bg-red text-white px-14 py-2 rounded-sm mt-2 hover:scale-105 transition-all duration-300") ثبت

@@ -1,0 +1,18 @@
+extends base
+
+block content 
+    div(class="pt-10 text-center md:w-[80%] mx-auto")
+        div(class="relative w-[70%] md:w-[30%] mx-auto mt-24 bg-white rounded-sm p-6 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            div(class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mx-auto")
+                label(for="u_u_photo")
+                    img(src=`/imgs/user/${me.photo}` alt="" class="w-full h-full object-cover cursor-pointer")         
+                input(type="file" name="u_u_photo" id="u_u_photo" class="hidden")
+
+            div(class="mt-8 text-sm md:text-base px-1 md:px-3")
+                div(class="flex flex-col items-start")
+                    label(for="u_u_name" class="font-IRanSans ml-2 font-semibold") نام
+                    input(type="text" name="u_u_name" id="u_u_name" class="bg-slate-200 rounded-sm outline-none font-IRanSans py-1.5 px-2 mt-1 w-[100%]" value=`${me.name}`)
+                div(class="flex flex-col items-start mt-2")
+                    label(for="u_u_email" class="font-IRanSans ml-2 font-semibold") ایمیل
+                    input(type="text" name="u_u_email" id="u_u_email" class="bg-slate-200 rounded-sm outline-none font-IRanSans py-1.5 px-2 mt-1 w-[100%]" value=`${me.email}`)
+            button(data-id=`${me._id}` id="updateMe-btn" class="bg-red text-white font-IRanSans px-10 py-2 mt-8 rounded-sm hover:scale-105 transition-all duration-300") ثبت

@@ -1,0 +1,51 @@
+extends dashbase 
+
+block content
+    section(class="w-[85%] mr-[15%] py-24 px-16")
+        div(class="w-[85%] font-IRanSans mx-auto bg-white p-4 rounded-sm shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div(class="flex")
+                div(class="w-60 h-72 ml-6")
+                    img(src=`/imgs/artwork/${artwork.image}` alt="" class="rounded-sm w-full object-cover h-full")
+
+                div
+                    p(class="text-3xl mt-10") تابلوی نقاشی 
+                        span(class="font-bold text-red")= artwork.name
+                    table(class="mt-4")
+                        tr
+                            td(class="w-28") هنرمند:
+                            td(class="leading-7")= artwork.artist.name
+                        tr
+                            td تکنیک:
+                            td(class="leading-7")= artwork.category
+                        tr
+                            td جنس ورق:
+                            td(class="leading-7")= artwork.paperMaterial
+                        tr
+                            td طول تابلو:
+                            td(class="leading-7")= `${artwork.height} سانتی متر`
+                        tr
+                            td عرض تابلو:
+                            td(class="leading-7")= `${artwork.width} سانتی متر`
+                        tr
+                            td قیمت:
+                            td(class="leading-7")= `${artwork.price} افغانی`
+
+
+            div(class="mt-6 px-6")
+                p(class="text-justify leading-7")= artwork.description
+
+            div(class="mr-6 mt-4")
+                a(href=`/dashboard/products/update/${artwork._id}` class="bg-slate-700 ml-2 text-white inline-block text-center w-28 py-2 rounded-sm text-sm") ویرایش
+                button(id="artwork-delete-btn" class="bg-red text-white w-28 py-2 rounded-sm text-sm") حذف
+
+    div(id="delete-artwork-popup" style="z-index: 300;" class="hidden fixed left-0 top-0 bottom-0 right-0 flex justify-center items-center font-IRanSans bg-slate-600 bg-opacity-60 backdrop backdrop-blur-sm")
+        div(class="relative bg-white rounded-sm flex p-6 px-8 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            i(id="delete-artwork-popup-close" class="fa-solid fa-xmark absolute text-xl top-1.5 right-2 cursor-pointer")
+            div(class="mt-3")
+                div(class="flex justify-center items-center")
+                    i(class="fa-solid fa-triangle-exclamation text-3xl ml-3")
+                    p مطمئن‌اید که حذف شود؟
+
+                div(class="mt-8")
+                    button(id="delete-artwork-yes" data-id=`${artwork._id}` class="bg-red ml-2 text-white w-[48%] py-2 rounded-sm cursor-pointer text-sm") بله!
+                    button(id="delete-artwork-no" class="bg-slate-700 text-white w-[48%] py-2 rounded-sm cursor-pointer text-sm") لغو

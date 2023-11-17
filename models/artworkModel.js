@@ -5,7 +5,7 @@ const artworkSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "An artwork must have a name"],
-      unique: true,
+      unique: [true, "تابلویی با این نام موجود است!"],
       maxlength: [
         50,
         "An artwork name must have less or equal than 50 characters",
@@ -24,7 +24,7 @@ const artworkSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    artist: [{ type: mongoose.Schema.ObjectId, ref: "Artist" }],
+    artist: { type: mongoose.Schema.ObjectId, ref: "Artist" },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -40,18 +40,19 @@ const artworkSchema = new mongoose.Schema(
 artworkSchema.pre(/^find/, function (next) {
   this.populate({
     path: "artist",
-    select: "-__v -passwordChangedAt",
+    select:
+      "-__v -passwordChangedAt -bio -createdAt -whatsappLink -facebookLink -instagramLink -phone -email -artworks",
   });
 
   next();
 });
 
 // Virtual populate
-artworkSchema.virtual("comments", {
-  ref: "Comment",
-  foreignField: "artwork",
-  localField: "_id",
-});
+// artworkSchema.virtual("comments", {
+//   ref: "Comment",
+//   foreignField: "artwork",
+//   localField: "_id",
+// });
 
 const Artwork = mongoose.model("Artwork", artworkSchema);
 

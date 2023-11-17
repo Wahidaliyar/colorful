@@ -17,7 +17,6 @@ const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-
     httpOnly: true,
   };
   if (process.env.NODE_ENV === "prod") cookieOptions.secure = true;
@@ -37,8 +36,18 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create(req.body);
+  if (req.body.password !== req.body.passwordConfirm) {
+    return next(new AppError("رمز عبور مشابه نیست!", 500));
+  }
 
+  const user = await User.findOne({ email: req.body.email });
+  if (user) {
+    return next(new AppError("کاربری با این ایمیل موجود است!", 404));
+  }
+
+  if (req.file) req.body.photo = req.file.filename;
+
+  const newUser = await User.create(req.body);
   createSendToken(newUser, 200, res);
 });
 
@@ -52,6 +61,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // 2) Check if user exists and password is correct
   const user = await User.findOne({ email }).select("+password");
+  if (!user) return next(new AppError("Incorrect email or password!", 401));
   const correct = await user.correctPassword(password, user.password);
 
   if (!user || !correct)
@@ -61,6 +71,15 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res, next) => {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 + 1000),
+    httpOnly: true,
+  });
+
+  res.status(200).json({ status: "success" });
+};
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Get token and check if it's there
   let token;
@@ -69,28 +88,34 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
-  if (!token)
-    return next(
-      new AppError("You are not logged in! Please log in to get access.", 401)
-    );
+  if (!token) {
+    // return next(
+    //   new AppError("You are not logged in! Please log in to get access.", 401)
+    // );
+    res.redirect("/");
+  }
   // 2) Verify the token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-  // 3) Chekc if the user still exists
+  // 3) Check if the user still exists
   const freshUser = await User.findById(decoded.id);
   if (!freshUser) {
-    return next(
-      new AppError("The user belonging to this token doesn't exist!", 401)
-    );
+    // return next(
+    //   new AppError("The user belonging to this token doesn't exist!", 401)
+    // );
+    res.redirect("/");
   }
 
   // 4) Check if the user changed password after the token was issued
   if (freshUser.changesPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError("User recently changed password! Please log in again.", 401)
-    );
+    // return next(
+    //   new AppError("User recently changed password! Please log in again.", 401)
+    // );
+    res.redirect("/");
   }
 
   // Grant access to PROTECTED ROUTE
@@ -98,16 +123,48 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+// Only for rendered pages, no errors!
+exports.isLoggedIn = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      //1) Verify the token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+
+      // 2) Chekc if the user still exists
+      const freshUser = await User.findById(decoded.id);
+      if (!freshUser) {
+        return next();
+      }
+
+      // 3) Check if the user changed password after the token was issued
+      if (freshUser.changesPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // THERE IS A LOGGED IN USER
+      res.locals.user = freshUser;
+      return next();
+    } catch (err) {
+      return next();
+    }
+  }
+  next();
+};
+
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin', 'user']
     if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError(
-          "You do not have the permission to perform this action.",
-          403
-        )
-      );
+      // return next(
+      //   new AppError(
+      //     "You do not have the permission to perform this action.",
+      //     403
+      //   )
+      // );
+      res.redirect("/");
     }
 
     next();

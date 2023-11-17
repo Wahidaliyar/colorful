@@ -1,0 +1,56 @@
+extends dashbase 
+
+block content
+    div( class="mr-[15%] pt-10 px-16")
+        div(class="relative w-[80%] mx-auto mt-32 bg-white rounded-sm flex p-8 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            div(class="font-IRanSans mx-auto")
+                div(class="flex text-right")
+                    table(class="ml-14")
+                        tr
+                            td(class="w-24") نام تابلو
+                            td
+                                input(type="text" name="u_p_name" id="u_p_name" value=`${artwork.name}` class="bg-slate-200 w-96 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td جنس ورق:
+                            td
+                                input(type="text" name="u_p_paper" id="u_p_paper" value=`${artwork.paperMaterial}` class="bg-slate-200 w-96 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td قیمت:
+                            td
+                                input(type="text" name="u_p_price" id="u_p_price" value=`${artwork.price}` class="bg-slate-200 w-96 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr(class="leading-7")
+                            td عکس:
+                            td
+                                label(for="u_p_image" class="bg-slate-700 text-white px-6 py-1 text-sm cursor-pointer rounded-sm") انتخاب عکس 
+                                input(type="file" name="u_p_image" id="u_p_image" class="hidden")
+                    table
+                        tr
+                            td طول تابلو
+                            td
+                                input(type="text" name="u_p_height" id="u_p_height" value=`${artwork.height}` class="bg-slate-200 mt-1 w-[148px] rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td عرض تابلو
+                            td  
+                                input(type="text" name="u_p_width" id="u_p_width" value=`${artwork.width}` class="bg-slate-200 mt-1 w-[148px] rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr(class="leading-10")
+                            td(class="w-24") تکنیک
+                            td
+                                select(class="font-IRanSans bg-slate-700 inline-block w-36 text-sm text-white py-[5px] outline-none rounded-sm cursor-pointer" name="u_p_tech" id="u_p_tech")
+                                    - let select = artwork.category
+                                    option(value="پنسل سیاه" selected=(select==='پنسل سیاه')) پنسل سیاه
+                                    option(value="پنسل رنگی" selected=(select==='پنسل رنگی')) پنسل رنگی
+                                    option(value="خودکار تک‌رنگ" selected=(select==='خودکار تک‌رنگ')) خودکار تک‌رنگ
+                                    option(value="خودکار رنگی" selected=(select==='خودکار رنگی')) خودکار رنگی
+                                    option(value="سیاه قلم" selected=(select==='سیاه قلم')) سیاه قلم
+                                    option(value="آبرنگ" selected=(select==='آبرنگ')) آبرنگ
+                                    option(value="ذغالی" selected=(select==='ذغالی')) ذغالی
+                                    option(value="نقطه‌چین" selected=(select==='نقطه‌چین')) نقطه‌چین           
+                        tr
+                            td هنرمند
+                            td
+                                select(class="font-IRanSans bg-slate-700 text-xs text-white inline-block w-36 py-[5px] outline-none rounded-sm cursor-pointer" name="u_p_artist" id="u_p_artist")
+                                    each artist in artists 
+                                        option(value=`${artist._id}` selected=(artist.name===artwork.artist.name))= artist.name 
+
+                textarea(name="u_p_desc" id="u_p_desc" placeholder="توضیحات" cols="30" rows="7" class="bg-slate-200 w-full mt-4 px-2 py-1 text-sm border-none outline-none") #{artwork.description}
+                button(id="u_p_btn" data-id=`${artwork._id}` class="bg-red text-white px-14 py-2 rounded-sm mt-2 hover:scale-105 transition-all duration-300") ثبت

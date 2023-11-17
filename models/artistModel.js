@@ -6,7 +6,6 @@ const artistSchema = new mongoose.Schema({
     type: String,
     required: [true, "An artist must have a name."],
   },
-  field: String,
   image: String,
   bio: {
     type: String,
@@ -15,8 +14,27 @@ const artistSchema = new mongoose.Schema({
   instagramLink: String,
   facebookLink: String,
   email: String,
+  phone: String,
   whatsappLink: String,
-  artworks: Array,
+  artworks: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Artwork",
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+artistSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "artworks",
+    select: "-__v",
+  });
+
+  next();
 });
 
 const Artist = mongoose.model("Artist", artistSchema);

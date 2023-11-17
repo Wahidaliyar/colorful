@@ -1,0 +1,79 @@
+div(id="logout-alert" style="z-index: 300;" class="hidden fixed left-0 top-0 bottom-0 right-0 flex justify-center items-center font-IRanSans bg-slate-600 bg-opacity-60 backdrop backdrop-blur-sm")
+    div(class="relative bg-white rounded-sm flex p-6 md:px-8 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+        i(id="logout-close" class="fa-solid fa-xmark absolute text-xl top-1.5 right-2 cursor-pointer")
+        div(class="mt-3")
+            div(class="flex justify-center items-center")
+                i(class="fa-solid fa-triangle-exclamation text-2xl md:text-3xl ml-3")
+                p(class="text-sm md:text-base") مایل‌اید که از حساب خود خارج شوید؟
+            div(class="mt-8")
+                button(id="logout-ok" class="bg-red text-white w-[48%] py-2 ml-2 rounded-sm cursor-pointer text-sm") بله!
+                button(id="logout-cancel" class="bg-slate-700 text-white w-[48%] py-2 rounded-sm cursor-pointer text-sm") لغو
+
+div
+    section(class="fixed w-[15%] min-h-[100vh] font-IRanSans bg-redd text-white", style="z-index: 100;")
+        div(class="p-6 flex justify-center items-center")
+            img(class="w-36" src="/imgs/logo.svg" alt="Logo")
+
+        hr(class="mt-4 mx-8 border-bg")
+        div
+            ul(class="mt-8")
+                //- a(href="/dashboard" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'dashboard' ? "bg-red" : ""}`)
+                    span(class="material-icons") grid_view 
+                    span(class="mr-2") داشبورد
+
+                a(href="/dashboard/products" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'products' ? "bg-red" : ""}`)
+                    span(class="material-icons") palette 
+                    span(class="mr-2") محصولات
+
+                a(href="/dashboard/users" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'users' ? "bg-red" : ""}`)         
+                    span(class="material-icons") group 
+                    span(class="mr-2") کاربرها 
+
+                a(href="/dashboard/artists" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'artists' ? "bg-red" : ""}`) 
+                    span(class="material-icons") supervised_user_circle 
+                    span(class="mr-2") هنرمندان
+
+                a(href="/dashboard/orders" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'orders' ? "bg-red" : ""}`) 
+                    span(class="material-icons") list_alt 
+                    span(class="mr-2") سفارشات
+
+                a(href="#" class="flex items-center p-2 pr-5 cursor-pointer hover:bg-red") 
+                    span(class="material-icons") inventory
+                    span(class="mr-2") فروشات
+                //- a(href="#" class="flex items-center p-2 pr-5 cursor-pointer hover:bg-red") 
+                    span(class="material-icons") notifications 
+                    span(class="mr-2") اعلانات
+
+
+    nav(class="fixed flex justify-between items-center h-[70px] bg-bg w-[85%] left-0 top-0 shadow-md" style="z-index: 100;")
+        //- <div class="mr-10">
+        //-     <a href="#" class="font-IRanSans text-slate-900 hover:text-red"
+        //-     >صفحه اصلی</a
+        //-     >
+        //-     <a href="#" class="font-IRanSans text-slate-900 hover:text-red mr-6"
+        //-     >محصولات</a
+        //-     >
+        //-     <a href="#" class="font-IRanSans text-slate-900 hover:text-red mr-6"
+        //-     >هنرمندان</a
+        //-     >
+        //- </div>
+        div
+        div(class="flex relative items-center ml-16")
+            p(class="font-IRanSans font-semibold ml-4")= user.name 
+            img(id="profile-pic" class="w-14 rounded-full border-2 border-bgShade cursor-pointer" src=`/imgs/user/${user.photo}` alt="Profile")
+
+            ul(id="profile-card" class="hidden absolute top-14 left-1 w-48 py-1 bg-white text-sm rounded-sm font-IRanSans shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+                        li(class="px-6 py-2")
+                            a(href=`/dashboard/me/${user._id}` class="flex items-center group")
+                                i(class="fa-regular fa-pen-to-square text-lg text-slate-500 group-hover:text-red transition-all duration-300") 
+                                span(class="mr-2 text-slate-900 group-hover:text-red transition-all duration-300") ویرایش پروفایل
+                        hr
+                        li(class="px-6 py-2")
+                            a(href="#" class="flex items-center group")
+                                i(class="fa-solid fa-key text-lg text-slate-500 group-hover:text-red transition-all duration-300")
+                                span(class="mr-2 text-slate-900 group-hover:text-red transition-all duration-300") تغییر رمز عبور
+                        hr
+                        li(class="px-6 py-2")
+                            button(class="flex items-center group")
+                                i(class="fa-solid fa-arrow-right-from-bracket text-lg text-slate-500 group-hover:text-red transition-all duration-300")
+                                span(id="logout-btn" class="mr-2 text-slate-900 group-hover:text-red transition-all duration-300") خروج از حساب

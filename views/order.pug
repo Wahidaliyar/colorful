@@ -9,26 +9,22 @@ block content
   
             div(class="w-full md:w-[50%] md:mx-auto bg-white shadow-lg rounded-lg px-4 md:px-10 pb-8 pt-3 mt-6 text-center")
                 form(class="flex flex-col items-start  py-4 px-2 mt-4")
-                    label(for="name" class="font-IRanSans md:font-semibold px-2") نام
-                    input(type="text" name="name" id="name" placeholder="علی" class="w-full font-IRanSans bg-slate-200 px-2 py-1 outline-none rounded-md mt-1")
+                    label(for="firstnameOrder" class="font-IRanSans text-sm md:font-semibold px-2") نام
+                    input(type="text" name="name" id="firstnameOrder" placeholder="علی" class="w-full font-IRanSans text-sm bg-slate-200 px-2 py-2 outline-none rounded-md mt-1")
   
-                    label(for="lastname" class="font-IRanSans md:font-semibold px-2 mt-4") نام خانوادگی
-                    input(type="text" name="lastname" id="lastname" placeholder="علوی" class="w-full font-IRanSans  bg-slate-200 px-2 py-1 outline-none rounded-md mt-1")
+                    label(for="phonenumber" class="font-IRanSans md:font-semibold text-sm px-2 mt-4") شماره تماس
+                    input(type="text" name="phonenumber" id="phonenumber" placeholder="+773102910" class="w-full ltr-div text-sm text-right font-IRanSans bg-slate-200 px-2 py-2 outline-none rounded-md mt-1")
   
-                    label(for="phonenumber" class="font-IRanSans md:font-semibold px-2 mt-4") شماره تماس
-                    input(type="text" name="phonenumber" id="phonenumber" placeholder="+773102910" class="w-full ltr-div text-right font-IRanSans bg-slate-200 px-2 pt-[6px] pb-[3px] outline-none rounded-md mt-1")
+                    label(for="emailOrder" class="font-IRanSans md:font-semibold text-sm px-2 mt-4") آدرس ایمیل
+                    input(type="email" name="email" id="emailOrder" placeholder="example@gmail.com" class="w-full ltr-div text-sm text-right bg-slate-200 px-2 py-2 outline-none rounded-md mt-1")
   
-                    label(for="email" class="font-IRanSans md:font-semibold px-2 mt-4") آدرس ایمیل
-                    input(type="email" name="email" id="email" placeholder="example@gmail.com" class="w-full ltr-div text-right  bg-slate-200 px-2 pt-1 pb-[6px] outline-none rounded-md mt-1")
-  
-                    label(class="font-IRanSans md:font-semibold px-2 mt-4") انتخاب فایل جهت بررسی
+                    label(class="font-IRanSans md:font-semibold text-sm px-2 mt-4") انتخاب فایل جهت بررسی
 
-                    label(for="file" class="bg-slate-700 text-sm text-white px-4 py-2 rounded-sm cursor-pointer font-IRanSans mt-2") انتخاب عکس
-                    input(type="file" name="file" id="file" class="hidden")
+                    label(for="image" class="bg-slate-700 text-sm text-white px-4 py-2 rounded-sm cursor-pointer font-IRanSans mt-2") انتخاب عکس
+                    input(type="file" name="image" id="image" class="hidden")
   
-                    label(for="height" class="font-IRanSans md:font-semibold px-2 mt-4") ابعاد تابلو (طول)
-
-                    select(class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="height" id="height")
+                    label(for="height" class="font-IRanSans text-sm md:font-semibold px-2 mt-4") ابعاد تابلو (طول)
+                    select(class="font-IRanSans bg-slate-700 text-xs text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="height" id="height")
                         option(value="25") 25 سانتی متر
                         option(value="30") 30 سانتی متر
                         option(value="35") 35 سانتی متر
@@ -40,8 +36,8 @@ block content
                         option(value="65") 65 سانتی متر
                         option(value="70") 70 سانتی متر
 
-                    label(for="width" class="font-IRanSans md:font-semibold px-2 mt-4") ابعاد تابلو (عرض)
-                    select(class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="width" id="width")
+                    label(for="width" class="font-IRanSans text-sm md:font-semibold px-2 mt-4") ابعاد تابلو (عرض)
+                    select(class="font-IRanSans bg-slate-700 text-xs text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="width" id="width")
                         option(value="25") 25 سانتی متر
                         option(value="30") 30 سانتی متر
                         option(value="35") 35 سانتی متر
@@ -53,18 +49,27 @@ block content
                         option(value="65") 65 سانتی متر
                         option(value="70") 70 سانتی متر
   
-                    label(for="tech" class="font-IRanSans md:font-semibold px-2 mt-4") تکنیک
-                    select(class="font-IRanSans bg-slate-700 text-sm text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="tech" id="tech")
-                        option(value="zoghal") پنسل سیاه
-                        option(value="30") پنسل رنگی
-                        option(value="35") خودکار تک‌رنگ
-                        option(value="40") خودکار رنگی
-                        option(value="45") سیاه قلم
-                        option(value="50") آبرنگ
-                        option(value="55") ذغالی
-                        option(value="60") نقطه‌چین
+                    label(for="tech" class="font-IRanSans text-sm md:font-semibold px-2 mt-4") تکنیک
+                    select(class="font-IRanSans bg-slate-700 text-xs text-white px-4 py-[5px] outline-none rounded-sm mt-2 cursor-pointer" name="tech" id="tech")
+                        option(value="پنسل سیاه") پنسل سیاه
+                        option(value="پنسل رنگی") پنسل رنگی
+                        option(value="خودکار تک‌رنگ") خودکار تک‌رنگ
+                        option(value="خودکار رنگی") خودکار رنگی
+                        option(value="سیاه قلم") سیاه قلم
+                        option(value="آبرنگ") آبرنگ
+                        option(value="ذغالی") ذغالی
+                        option(value="نقطه‌چین") نقطه‌چین
   
-                    label(for="description" class="font-IRanSans md:font-semibold px-2 mt-4") توضیحات
+                    label(for="description" class="font-IRanSans text-sm md:font-semibold px-2 mt-4") توضیحات
                     textarea(name="description" id="description" cols="30" rows="5" class="w-full font-IRanSans text-sm bg-slate-200 px-2 pt-1 pb-[6px] outline-none rounded-md mt-1")
   
-                    button(class="font-IRanSans md:font-semibold md:text-lg text-white self-center mt-8 pt-2 pb-2 px-8  bg-red rounded-sm") ثبت درخواست
+                    button(id="order-btn" class="font-IRanSans text-white self-center mt-8 pt-2 pb-2 px-8  bg-red rounded-sm hover:scale-105 transition-all duration-200") ثبت درخواست
+
+
+    div(id="success" class="hidden font-IRanSans text-white text-xs md:text-base bg-emerald-600 py-3 md:py-4 px-4 md:px-8 flex items-center fixed top-0 left-[50%] translate-x-[-50%]" style="z-index: 300;")
+        i(class="fa-regular fa-circle-check text-xl md:text-3xl ml-2 md:ml-3")
+        p درخواست موفقانه انجام شد!
+
+    div(id="fail" class="hidden font-IRanSans text-xs md:text-base text-white bg-red py-3 md:py-4 px-6 md:px-8 flex items-center fixed top-0 left-[50%] translate-x-[-50%]" style="z-index: 300;")
+        i(class="fa-solid fa-triangle-exclamation text-xl md:text-3xl ml-2 md:ml-3")
+        p درخواست انجام نشد!

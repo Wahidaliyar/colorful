@@ -8,24 +8,12 @@ const router = express.Router();
 router
   .route("/")
   .get(artistController.getAllArtists)
-  .post(
-    authController.protect,
-    authController.restrictTo("admin"),
-    artistController.createArtist
-  );
+  .post(artistController.uploadArtistPhoto, artistController.createArtist);
 
 router
   .route("/:id")
   .get(artistController.getArtist)
-  .patch(
-    authController.protect,
-    authController.restrictTo("admin"),
-    artistController.updateArtist
-  )
-  .delete(
-    authController.protect,
-    authController.restrictTo("admin"),
-    artistController.deleteArtist
-  );
+  .patch(artistController.uploadArtistPhoto, artistController.updateArtist)
+  .delete(artistController.deleteArtist);
 
 module.exports = router;

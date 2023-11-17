@@ -4,10 +4,23 @@ const navbarMobileWrapper = document.querySelector("#navbar-mobile__wrapper");
 const navbarMobileClose = document.querySelector("#navbar-mobile__close");
 const loginContainer = document.querySelector("#login-container");
 const btnLogin = document.querySelector("#btn-login");
-const btnSignup = document.querySelectorAll("#btn-signup");
+const btnSignup = document.querySelector("#btn-signup");
 const signupContainer = document.querySelector("#signup-container");
 const btnLoginClose = document.querySelector("#btn-login-close");
 const btnSignupClose = document.querySelector("#btn-signup-close");
+
+function showLoginForm() {
+  loginContainer.classList.remove("hidden");
+}
+function hideLoginForm() {
+  loginContainer.classList.add("hidden");
+}
+function showSignupForm() {
+  signupContainer.classList.remove("hidden");
+}
+function hideSignupForm() {
+  signupContainer.classList.add("hidden");
+}
 
 menu.addEventListener("click", function () {
   navbarMobile.classList.remove("hidden");
@@ -27,26 +40,13 @@ navbarMobileClose.addEventListener("click", function () {
   navbarMobileWrapper.classList.add("hidden");
 });
 
-btnLogin.addEventListener("click", function () {
-  loginContainer.classList.remove("hidden");
-});
+if (btnLogin) btnLogin.addEventListener("click", showLoginForm);
+btnLoginClose.addEventListener("click", hideLoginForm);
 
-btnLoginClose.addEventListener("click", function () {
-  loginContainer.classList.add("hidden");
-});
-
-btnSignup.forEach((btn) => {
-  btn.addEventListener("click", function () {
-    signupContainer.classList.remove("hidden");
-  });
-});
-
-btnSignupClose.addEventListener("click", function () {
-  signupContainer.classList.add("hidden");
-});
+if (btnSignup) btnSignup.addEventListener("click", showSignupForm);
+btnSignupClose.addEventListener("click", hideSignupForm);
 
 const navbar = document.querySelector("#navbar");
-
 window.addEventListener("scroll", () => {
   if (window.scrollY > 10) {
     navbar.classList.add("bg-bg");
@@ -56,8 +56,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-menu.addEventListener("click", function () {
-  navbarMobile.classList.remove("hidden");
-  navbarMobile.classList.add("flex");
-  navbarMobileWrapper.classList.remove("hidden");
-});
+const mobileLoginBtn = document.querySelector("#mobile-login-btn");
+const mobileSignupBtn = document.querySelector("#mobile-signup-btn");
+if (mobileLoginBtn) mobileLoginBtn.addEventListener("click", showLoginForm);
+if (mobileSignupBtn) mobileSignupBtn.addEventListener("click", showSignupForm);

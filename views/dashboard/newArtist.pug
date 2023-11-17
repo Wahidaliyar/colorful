@@ -1,0 +1,41 @@
+extends dashbase 
+
+block content 
+    div(class="mr-[15%] pt-10 px-16")
+        div(class="relative w-[80%] mx-auto mt-32 bg-white rounded-sm flex p-6 shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            div(class="font-IRanSans text-right")
+                div(class="flex")
+                    table(class="ml-14")
+                        tr
+                            td(class="w-20 leading-10") نام
+                            td
+                                input(type="text" name="a_a_name" id="a_a_name" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td(class="leading-10") ایمیل
+                            td
+                                input(type="email" name="a_a_email" id="a_a_email" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none") 
+                        tr
+                            td(class="leading-10") عکس
+                            td
+                                label(for="a_a_image" class="bg-slate-700 text-white px-6 py-2 text-sm cursor-pointer rounded-sm") انتخاب عکس
+                                input(type="file" name="a_a_image" id="a_a_image" class="hidden")
+                    table
+                        tr
+                            td(class="w-12")
+                                i(class="fa-brands fa-whatsapp text-3xl text-slate-800")
+                            td
+                                input(type="text" name="a_a_whatsapp" id="a_a_whatsapp" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td
+                                i(class="fa-brands fa-facebook text-3xl text-slate-800")
+                            td
+                                input(type="text" name="a_a_facebook" id="a_a_facebook" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+                        tr
+                            td(class="text-center")
+                                i(class="fa-solid fa-mobile-screen-button text-3xl text-slate-800")
+                            td
+                                input(type="text" name="a_a_phone" id="a_a_phone" class="bg-slate-200 w-80 rounded-sm font-IRanSans px-2 py-1 border-none outline-none")
+
+
+                textarea(name="a_a_bio" id="a_a_bio" placeholder="بیوگرافی" cols="30" rows="7" class="bg-slate-200 w-full mt-2 px-2 py-1 text-sm border-none outline-none")
+                button(id="a_a_btn" class="bg-red text-white w-32 py-2 rounded-sm mt-2 hover:scale-105 transition-all duration-300") ثبت

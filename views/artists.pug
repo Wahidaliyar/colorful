@@ -6,101 +6,16 @@ block content
 
         div(class="flex justify-center flex-wrap mt-4 md:mt-6")
 
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-2.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
+            each artist in artists
+                div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden border-2 bg-bgShade border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
+                    div(class="w-full h-44 mb-4")
+                        img(class="rounded-sm w-full h-full object-cover"  src=`/imgs/artist/${artist.image}`  alt="")
+                    p(class="font-IRanSans md:text-lg font-semibold text-red")= artist.name
+                    div(class="text-3xl md:text-3xl mt-4 text-red")
+                        a(href=`https://${artist.instagramLink}`)
+                            i(class="fa-brands fa-instagram")
+                        a(href=`https://${artist.whatsappLink}` class="mr-2 ml-2")
+                            i(class="fa-brands fa-whatsapp")
+                        a(href=`/artists/${artist._id}`)
+                            i(class="fa-regular fa-eye")
 
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-2.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="/artists/1111111111")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-3.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-4.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-2.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-3.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-4.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-2.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
-
-            div(class="w-[70%] md:mx-2 mt-4 md:w-[23%] overflow-hidden bg-bgShade border-2 border-bgShade hover:bg-transparent p-3 pb-4 rounded-sm")
-                img(class="rounded-sm mb-4" src="/imgs/team-member-3.jpg" alt="")
-                p(class="font-IRanSans md:text-lg font-semibold text-red") محمد رضا قاسمی
-                    div(class="text-3xl md:text-4xl mt-2 text-redd")
-                        a(href="#")
-                            i(class="fa-brands fa-square-instagram hover:text-red")
-                        a(href="#" class="mx-1")
-                            i(class="fa-brands fa-square-whatsapp hover:text-red")
-                        a(href="#")
-                            i(class="fa-solid fa-circle-info hover:text-red")
