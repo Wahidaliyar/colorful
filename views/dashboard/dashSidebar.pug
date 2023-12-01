@@ -10,34 +10,34 @@ div(id="logout-alert" style="z-index: 300;" class="hidden fixed left-0 top-0 bot
                 button(id="logout-cancel" class="bg-slate-700 text-white w-[48%] py-2 rounded-sm cursor-pointer text-sm") لغو
 
 div
-    section(class="fixed w-[15%] min-h-[100vh] font-IRanSans bg-redd text-white", style="z-index: 100;")
+    section(class="fixed w-[15%] min-h-[100vh] font-IRanSans bg-redd100 text-white", style="z-index: 100;")
         div(class="p-6 flex justify-center items-center")
-            img(class="w-36" src="/imgs/logo.svg" alt="Logo")
+            img(class="w-28" src="/imgs/logo.png" alt="Logo")
 
-        hr(class="mt-4 mx-8 border-bg")
+        
         div
             ul(class="mt-8")
-                //- a(href="/dashboard" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'dashboard' ? "bg-red" : ""}`)
+                a(href="/dashboard" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-redd ${active === 'dashboard' ? "bg-redd" : ""}`)
                     span(class="material-icons") grid_view 
                     span(class="mr-2") داشبورد
 
-                a(href="/dashboard/products" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'products' ? "bg-red" : ""}`)
+                a(href="/dashboard/products" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-redd ${active === 'products' ? "bg-redd" : ""}`)
                     span(class="material-icons") palette 
                     span(class="mr-2") محصولات
 
-                a(href="/dashboard/users" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'users' ? "bg-red" : ""}`)         
+                a(href="/dashboard/users" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-redd ${active === 'users' ? "bg-redd" : ""}`)         
                     span(class="material-icons") group 
                     span(class="mr-2") کاربرها 
 
-                a(href="/dashboard/artists" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'artists' ? "bg-red" : ""}`) 
+                a(href="/dashboard/artists" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-redd ${active === 'artists' ? "bg-redd" : ""}`) 
                     span(class="material-icons") supervised_user_circle 
                     span(class="mr-2") هنرمندان
 
-                a(href="/dashboard/orders" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-red ${active === 'orders' ? "bg-red" : ""}`) 
+                a(href="/dashboard/orders" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-redd ${active === 'orders' ? "bg-redd" : ""}`) 
                     span(class="material-icons") list_alt 
                     span(class="mr-2") سفارشات
 
-                a(href="#" class="flex items-center p-2 pr-5 cursor-pointer hover:bg-red") 
+                a(href="/dashboard/sales" class=`flex items-center p-2 pr-5 cursor-pointer hover:bg-redd ${active === 'sales' ? "bg-redd" : ""}`) 
                     span(class="material-icons") inventory
                     span(class="mr-2") فروشات
                 //- a(href="#" class="flex items-center p-2 pr-5 cursor-pointer hover:bg-red") 
@@ -45,20 +45,15 @@ div
                     span(class="mr-2") اعلانات
 
 
-    nav(class="fixed flex justify-between items-center h-[70px] bg-bg w-[85%] left-0 top-0 shadow-md" style="z-index: 100;")
-        //- <div class="mr-10">
-        //-     <a href="#" class="font-IRanSans text-slate-900 hover:text-red"
-        //-     >صفحه اصلی</a
-        //-     >
-        //-     <a href="#" class="font-IRanSans text-slate-900 hover:text-red mr-6"
-        //-     >محصولات</a
-        //-     >
-        //-     <a href="#" class="font-IRanSans text-slate-900 hover:text-red mr-6"
-        //-     >هنرمندان</a
-        //-     >
-        //- </div>
+    nav(class="fixed flex justify-between items-center h-[70px] bg-white w-[85%] left-0 top-0 shadow-md" style="z-index: 100;")
         div
         div(class="flex relative items-center ml-16")
+            div(class="ml-6 relative cursor-pointer")
+                div(id="nots-counter"  class="absolute -top-2 -right-2 bg-ored-600 rounded-full w-5 h-5 flex justify-center items-center text-white text-xs") 5
+                i(id="bell" class="fa-regular fa-bell text-2xl")
+
+                div(id="not-container" class="hidden absolute top-8 left-0 bg-white text-slate-800 rounded-sm shadow-lg text-sm px-4 py-2")
+
             p(class="font-IRanSans font-semibold ml-4")= user.name 
             img(id="profile-pic" class="w-14 rounded-full border-2 border-bgShade cursor-pointer" src=`/imgs/user/${user.photo}` alt="Profile")
 

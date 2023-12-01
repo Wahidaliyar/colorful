@@ -1,0 +1,41 @@
+extends base
+
+block content 
+    section(class=" pt-28 px-4")
+        div(class="md:w-[50%] mx-auto text-right")
+            p(class="font-mehr text-2xl md:text-3xl border-b-2 border-red inline-block") خریدهای من
+
+        div(class="bg-white md:w-[50%] mx-auto text-center px-6 py-4 mt-4 shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div
+                if items.length === 0
+                    p(class="font-IRanSans pt-6 pb-4") موردی موجود نیست!
+
+                else
+                    div
+                        each item, index in items
+                            div(class="md:flex md:items-center md:justify-between border-b border-slate-300 pb-2 md:pb-0")
+                                div(class="flex justify-between items-center md:flex-[2]")
+                                    div(class="flex flex-[2] py-3")
+                                        div(class="h-24 w-20 md:h-28 md:w-[90px]")
+                                            img(class="w-full h-full object-cover" src=`/imgs/artwork/${item.artwork.image}` alt="")
+
+                                        div(class="text-right flex flex-col justify-between")
+                                            p(class="font-IRanSans text-sm md:text-base text-red font-semibold mr-4 mt-1")= item.artwork.name
+                            
+                                            div
+                                                p(class="text-sm md:text-base font-semibold text-slate-400 mr-4")= dates[index]
+                                                p(class="text-sm md:text-base font-semibold text-slate-400 mr-4") #15930384
+                            
+                                    div(class="flex flex-col md:flex-row md:flex-[2] md:ml-10")
+                                        div(class="flex-1 flex justify-center items-center font-IRanSans font-semibold mb-2")= `${item.price} افغانی`
+                                    
+                                        div(class="flex-1 flex justify-center items-center font-IRanSans text-xs font-semibold")
+                                            if item.state === "pending"
+                                                span(class="bg-blue-500 px-3 py-1 rounded-xl") درحال پردازش
+                                            else if item.state === "delivering"
+                                                span(class="bg-yellow-500 px-3 py-1 rounded-xl") درحال تحویل
+                                            else if item.state === "completed"
+                                                span(class="bg-green-500 px-3 py-1 rounded-xl") دریافت شده
+                    
+                                a(href=`/purchase/${item._id}` class="w-full md:w-28 md:h-[36px] bg-redd font-IRanSans text-white inline-block py-1.5 mt-1 cursor-pointer") جزئیات
+            

@@ -3,11 +3,10 @@ extends base
 block content
     section(class="pt-32 md:w-[80%] mx-auto")
         div(class="relative mx-auto w-56 text-center") 
-            //- select(name="product-filter" id="product-filter" class="bg-slate-700 text-white text-sm p-1 font-IRanSans px-3 md:px-5 rounded-sm outline-none")
-                option(value="new" selected)
-                    a(href="/products?filter=new") مرتب‌ساری براساس جدیدترین
-                option(value="lowest") مرتب‌ساری براساس ارزانترین
-                option(value="highest") مرتب‌ساری براساس گرانترین
+            select(name="product-filter" id="product-filter" class="bg-redd100 text-white text-sm p-1 font-IRanSans px-3 md:px-5 rounded-sm outline-none")
+                option(value="new" selected=(sortValue !== 'cheap' && sortValue !== 'expensive')) مرتب‌ساری براساس جدیدترین
+                option(value="cheap" selected=(sortValue === 'cheap')) مرتب‌ساری براساس ارزانترین
+                option(value="expensive" selected=(sortValue === 'expensive')) مرتب‌ساری براساس گرانترین
 
         p(class="font-IRanSans text-sm md:text-base text-center mt-4")= `${startIndex} - ${startIndex + artworks.length - 1} آیتم از ${count} آیتم`
 
@@ -33,9 +32,9 @@ block content
         div(class="flex justify-center mt-8")
             nav(class="inline-flex")
                 if num != 1
-                    a(href=`/products?page=${prev}` style=`${!prev ? "pointer-events: none" : ""}` class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-white text-sm md:text-base bg-reddShade hover:bg-red transition-colors duration-200") قبلی
+                    a(href=`/products?filter=${sortValue}&page=${prev}` style=`${!prev ? "pointer-events: none" : ""}` class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-white text-sm md:text-base bg-reddShade hover:bg-red transition-colors duration-200") قبلی
 
                     each page in num
-                        a(href=`/products?page=${page}` class=`px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-red text-white ${page == currentPage ? 'bg-red' : "bg-reddShade"} hover:bg-red transition-colors duration-200`)= page
+                        a(href=`/products?filter=${sortValue}&page=${page}` class=`px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-red text-white ${page == currentPage ? 'bg-red' : "bg-reddShade"} hover:bg-red transition-colors duration-200`)= page
                 
-                    a(href=`/products?page=${next}` style=`${!next ? "pointer-events: none" : ""}` class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-reddShade text-white hover:bg-red transition-colors duration-200") بعدی
+                    a(href=`/products?filter=${sortValue}&page=${next}` style=`${!next ? "pointer-events: none" : ""}` class="px-2 md:px-4 py-1 md:py-2 mx-[2px] md:mx-1 rounded-sm font-IRanSans text-sm md:text-base bg-reddShade text-white hover:bg-red transition-colors duration-200") بعدی

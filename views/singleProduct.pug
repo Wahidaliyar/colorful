@@ -22,7 +22,8 @@ block content
                         p(class="mt-1")= `${artwork.width} ✕ ${artwork.height} سانتی متر`
                         p(class="text-red mt-1")= `${artwork.price} افغانی`
                 if user
-                    button(id="add-to-cart-btn" data-user=`${user._id}` data-artwork=`${artwork._id}`  class="font-IRanSans text-sm md:text-base bg-red text-white px-4 md:px-6 py-2 rounded-sm mt-4 md:mt-8 hover:scale-105 transition-all duration-300") افزودن به سبد خرید
+                    button(id="add-to-cart-btn" data-user=`${user._id}` data-price=artwork.price data-artwork=`${artwork._id}`  class="font-IRanSans text-sm md:text-base bg-red text-white px-4 md:px-6 py-2 rounded-sm mt-4 md:mt-8 hover:scale-105 transition-all duration-300") افزودن به سبد خرید
+                    //- button(id="buy-btn" data-user=`${user._id}` data-artwork=`${artwork._id}`  class="font-IRanSans text-sm md:text-base bg-red text-white px-4 md:px-6 py-2 rounded-sm mt-4 md:mt-8 hover:scale-105 transition-all duration-300") خرید
 
         div(class="mt-6 md:w-[75%] md:mx-auto")
             //- div(class="mt-6 bg-bgShade px-2 md:px-8 pt-2 pb-4 rounded-md")

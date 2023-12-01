@@ -25,6 +25,11 @@ const orderSchema = new mongoose.Schema(
       trim: true,
     },
     technique: String,
+    state: {
+      type: String,
+      enum: ["pending", "working", "completed"],
+      default: "pending",
+    },
     createdAt: {
       type: Date,
       default: Date.now,

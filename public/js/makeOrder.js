@@ -1,12 +1,4 @@
-const name = document.getElementById("firstnameOrder");
-const phoneNumber = document.getElementById("phonenumber");
-const email = document.getElementById("emailOrder");
-const image = document.getElementById("image");
-const height = document.getElementById("height");
-const width = document.getElementById("width");
-const tech = document.getElementById("tech");
-const description = document.getElementById("description");
-const orderBtn = document.getElementById("order-btn");
+import { showAlert } from "./alert.js";
 
 async function sendOrder(formData) {
   await axios
@@ -17,20 +9,53 @@ async function sendOrder(formData) {
     .catch((err) => console.log(err));
 }
 
-orderBtn.addEventListener("click", function (e) {
+document.getElementById("order-btn")?.addEventListener("click", function (e) {
   e.preventDefault();
-  const formData = new FormData();
+  const name = document.getElementById("firstnameOrder");
+  const phoneNumber = document.getElementById("phonenumber");
+  const email = document.getElementById("emailOrder");
+  const image = document.getElementById("image");
+  const height = document.getElementById("height");
+  const width = document.getElementById("width");
+  const tech = document.getElementById("tech");
+  const description = document.getElementById("description");
 
-  formData.append("name", name.value);
-  formData.append("phone", phoneNumber.value);
-  formData.append("email", email.value);
-  formData.append("image", image.files[0]);
-  formData.append("height", Number(height.value));
-  formData.append("width", Number(width.value));
-  formData.append("technique", tech.value);
-  formData.append("description", description.value);
-
-  sendOrder(formData);
+  if (!/^[\p{L}\s]{3,}$/u.test(name.value)) {
+    showAlert("error", "لطفاً نام خود را وارد کنید.");
+  } else if (!/^(?:\+\d{1,12}|\d{10,12})$/.test(phoneNumber.value)) {
+    showAlert("error", "لطفاً شماره تلفن معتبر وارد کنید.");
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    showAlert("error", "لطفاً ایمیل معتبر وارد کنید.");
+  } else if (image.files.length > 0) {
+    if (!/\.(png|jpe?g)$/i.test(image.files[0].name)) {
+      showAlert(
+        "error",
+        " تنها فایل‌های با پسوندهای .png، .jpeg یا .jpg مجاز هستند."
+      );
+    } else {
+      const formData = new FormData();
+      formData.append("name", name.value);
+      formData.append("phone", phoneNumber.value);
+      formData.append("email", email.value);
+      formData.append("image", image.files[0]);
+      formData.append("height", Number(height.value));
+      formData.append("width", Number(width.value));
+      formData.append("technique", tech.value);
+      formData.append("description", description.value);
+      sendOrder(formData);
+    }
+  } else {
+    const formData = new FormData();
+    formData.append("name", name.value);
+    formData.append("phone", phoneNumber.value);
+    formData.append("email", email.value);
+    formData.append("image", image.files[0]);
+    formData.append("height", Number(height.value));
+    formData.append("width", Number(width.value));
+    formData.append("technique", tech.value);
+    formData.append("description", description.value);
+    sendOrder(formData);
+  }
 });
 
 function showSuccessMessage() {
@@ -39,5 +64,6 @@ function showSuccessMessage() {
 
   setTimeout(() => {
     successMessage.classList.add("hidden");
-  }, 2000);
+    window.location.href = "/order"
+  }, 1500);
 }

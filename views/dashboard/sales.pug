@@ -1,0 +1,86 @@
+extends dashbase
+
+
+block content
+    div(class="w-[85%] mr-[15%] pt-24 px-16" style="z-index: 10; padding-bottom: 4rem;")
+        div(class="flex justify-between items-center")
+            div(class="flex justify-between items-center")
+                select(name="sales-table" id="sales-table" class="bg-redd100 text-white text-sm p-1 font-IRanSans px-3 md:px-5 rounded-sm outline-none")
+                    option(value="online" selected=(salesType === 'online')) فروشات آنلاین
+                    option(value="inperson" selected=(salesType === 'inperson')) فروشات حضوری
+
+            div(class="flex-1")
+
+        div(class="relative mt-4 pb-4 overflow-x-auto rounded-md shadow-[1px_2px_10px_-2px_rgba(0,0,0,0.5)]")
+            table(class="w-full text-sm text-right")
+                if salesType === 'online'
+                    thead(class="font-IRanSans text-base text-slate-200 bg-redd")
+                        tr
+                            th(scope="col" class="px-6 py-4") #
+                            th(scope="col" class="px-6 py-4") تابلو
+                            th(scope="col" class="px-6 py-4") کاربر
+                            th(scope="col" class="px-6 py-4") قیمت
+                            th(scope="col" class="px-6 py-4") حالت
+                            th(scope="col" class="px-6 py-4") 
+                                span(class="sr-only") Info
+
+                    tbody(class="font-IRanSans text-gray-900")
+                        if Array.isArray(sales)
+                            each sale in sales
+                                tr(class="bg-bgShade border-b")
+                                    td(class="px-6 py-4 font-semibold")= startIndex
+                                    td(scope="row" class="px-6 py-4 font-semibold whitespace-nowrap")= sale.artwork.name
+                                    td(class="px-6 py-4")= sale.user.name
+                                    td(class="px-6 py-4")= sale.price
+                                    if sale.state === "pending"
+                                        td(class="px-6 py-4")
+                                            span(class="bg-blue-500 px-3 py-1 rounded-full") درحال پردازش
+                                    else if sale.state === "delivering"
+                                        td(class="px-6 py-4")
+                                            span(class="bg-yellow-500 px-3 py-1 rounded-full") درحال تحویل
+                                    else if sale.state === "completed"
+                                        td(class="px-6 py-4")
+                                            span(class="bg-green-500 px-3 py-1 rounded-full") تکمیل شده
+                                    td(class="px-6 py-4 text-right")
+                                        a(href=`/dashboard/sales/${sale._id}` class="desc-btn bg-redd text-white px-3 py-1 rounded-md hover:underline") جزئیات
+                                - startIndex = startIndex + 1
+
+                else
+                    thead(class="font-IRanSans text-base text-slate-200 bg-redd")
+                        tr
+                            th(scope="col" class="px-6 py-4") #
+                            th(scope="col" class="px-6 py-4") تابلو
+                            th(scope="col" class="px-6 py-4") قیمت
+                            th(scope="col" class="px-6 py-4") 
+                                span(class="sr-only") Info
+
+                    tbody(class="font-IRanSans text-gray-900")
+                        if Array.isArray(sales)
+                            each sale in sales
+                                tr(class="bg-bgShade border-b")
+                                    td(class="px-6 py-4 font-semibold")= startIndex
+                                    td(scope="row" class="px-6 py-4 font-semibold whitespace-nowrap")= sale.artwork.name
+                                    td(class="px-6 py-4")= sale.price
+                                    td(class="px-6 py-4 text-right")
+                                        a(href=`/dashboard/sales/${sale._id}` class="desc-btn bg-redd text-white px-3 py-1 rounded-md hover:underline") جزئیات
+                                - startIndex = startIndex + 1
+
+            nav(aria-label="Page navigation" class="mt-4 flex justify-end w-[97%]")
+                ul(class="flex items-center -space-x-px h-8 text-sm font-bold")
+
+                    if num != 1
+                        li
+                            a(href=`/dashboard/sales?page=${prev}` style=`${!prev ? "pointer-events: none" : ""}` class="flex items-center justify-center px-3 h-8 ml-0 leading-tight border rounded-r-lg text-red border-red hover:bg-bgShade")
+                                span(class="sr-only") Previous
+                                svg(class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10")
+                                    path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4")
+                        
+                        each page in num
+                            li
+                                a(href=`/dashboard/sales?page=${page}` class=`flex items-center justify-center px-3 h-8 leading-tight border border-red hover:bg-bgShade ${page == currentPage ? 'bg-red text-bg hover:bg-redd' : "text-red hover:bg-bgShade"}`)= page
+                    
+                        li
+                            a(href=`/dashboard/sales?page=${next}` style=`${!next ? "pointer-events: none" : ""}` class="flex items-center justify-center px-3 h-8 leading-tight border rounded-l-lg text-red border-red hover:bg-bgShade")
+                                span(class="sr-only") Next
+                                svg(class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10")
+                                    path(stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4")

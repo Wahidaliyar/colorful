@@ -10,7 +10,7 @@ block content
                     table(class="font-IRanSans text-right")
                         tr
                             td(class="w-32") سفارش دهنده:
-                            td(class="leading-7 font-semibold")= order.firstname
+                            td(class="leading-7 font-semibold")= order.name
                         tr
                             td شماره تماس:
                             td(class="leading-7")= order.phone
@@ -33,7 +33,7 @@ block content
                             - const day = order.createdAt.getDate()
                             td(class="leading-7")= `${year}/${month}/${day}`
 
-                    p(class="mt-4 text-justify text-sm font-IRanSans leading-7") گل و مرغ سنتی ایران و سایر کشورهای دیگر با توجه به نوع طراحی آن قابل تمیز از یکدیگر است. یکی از این موارد آثار سبک هندی است که نمونه ای از آن را در اینجا مشاهده می کنید. هند به واسطه موقعیت جغرافیایی خود در بین کشورهایی مانند چین و ایران به عنوان کشوری مستقل درزمینه نقاشی ،سبک خاص خود را دارا می باشد که با تحقیق و بررسی آثار هندی به راحتی قابل تمیز است.
+                    p(class="mt-4 text-justify text-sm font-IRanSans leading-7")= order.description
 
             button(id="delete-order-btn" class="bg-red absolute bottom-4 left-4 font-IRanSans text-sm text-white px-10 py-2 rounded-sm mt-2 hover:scale-105 transition-all duration-300") حذف
 

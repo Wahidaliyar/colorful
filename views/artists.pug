@@ -12,8 +12,8 @@ block content
                         img(class="rounded-sm w-full h-full object-cover"  src=`/imgs/artist/${artist.image}`  alt="")
                     p(class="font-IRanSans md:text-lg font-semibold text-red")= artist.name
                     div(class="text-3xl md:text-3xl mt-4 text-red")
-                        a(href=`https://${artist.instagramLink}`)
-                            i(class="fa-brands fa-instagram")
+                        a(href=`https://${artist.facebookLink}`)
+                            i(class="fa-brands fa-facebook")
                         a(href=`https://${artist.whatsappLink}` class="mr-2 ml-2")
                             i(class="fa-brands fa-whatsapp")
                         a(href=`/artists/${artist._id}`)

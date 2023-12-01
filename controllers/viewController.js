@@ -5,6 +5,7 @@ const User = require("./../models/userModel");
 const Artist = require("./../models/artistModel");
 const Order = require("./../models/orderModel");
 const Cart = require("../models/cartModel");
+const Sale = require("../models/salesModel");
 
 exports.getHomePage = catchAsync(async (req, res) => {
   const TenNewArtwork = await Artwork.find().sort("-createdAt").limit(8);
@@ -30,12 +31,12 @@ exports.getProductsPage = catchAsync(async (req, res) => {
   else sortQuery = "-createdAt";
   const page = parseInt(req.query.page) || 1;
   const limit = 9;
-  const artworks = await Artwork.find()
+  const artworks = await Artwork.find({ state: { $ne: "sold" } })
     .sort(sortQuery)
     .skip((page - 1) * limit)
     .limit(limit)
     .exec();
-  const count = await Artwork.countDocuments();
+  const count = await Artwork.countDocuments({ state: { $ne: "sold" } });
   const numOfPages = Math.ceil(count / limit);
   const next = page >= numOfPages ? false : page + 1;
   const prev = page === 1 ? false : page - 1;
@@ -57,6 +58,7 @@ exports.getProductsPage = catchAsync(async (req, res) => {
     startIndex,
     limit,
     count,
+    sortValue: filter,
   });
 });
 
@@ -122,11 +124,184 @@ exports.getCart = catchAsync(async (req, res) => {
   });
 });
 
+exports.getPurchase = catchAsync(async (req, res) => {
+  const items = await Sale.find({ user: req.query.user }).sort("-createdAt");
+
+  let dates = [];
+  for (let element of items) {
+    const date = new Date(element.createdAt);
+    const formattedDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    dates.push(formattedDate);
+  }
+
+  res.status(200).render("purchases", {
+    title: `جلوه‌های رنگین | خرید‌های من `,
+    items,
+    dates,
+  });
+});
+
+exports.getSinglePurchase = catchAsync(async (req, res) => {
+  const item = await Sale.findById(req.params.id);
+
+  const origDate = new Date(item.createdAt);
+  const date = `${origDate.getDate()}/${origDate.getMonth()}/${origDate.getFullYear()}`;
+
+  console.log(item.artwork.artist.name);
+
+  res.status(200).render("singlePurchase", {
+    title: `جلوه‌های رنگین | خرید‌های من `,
+    item,
+    date,
+  });
+});
+
 // DASHBOARD ROUTE CONTROLLERS
 exports.getDashboard = catchAsync(async (req, res) => {
-  res.status(200).render("dashboard/products", {
+  const countUser = await User.countDocuments({ role: "user" });
+  const countOrders = await Order.countDocuments({ state: "working" });
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set the time to the start of the day
+
+  const inpersonSales = await Sale.aggregate([
+    {
+      $match: {
+        type: "inperson",
+        createdAt: { $gte: today },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalPrice: { $sum: "$price" },
+      },
+    },
+  ]);
+
+  const onlineSales = await Sale.aggregate([
+    {
+      $match: {
+        type: "online",
+        state: "completed",
+        createdAt: { $gte: today },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalPrice: { $sum: "$price" },
+      },
+    },
+  ]);
+
+  const currentDate = new Date();
+  const startOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+
+  const monthlySales = await Sale.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startOfMonth },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalPrice: { $sum: "$price" },
+      },
+    },
+  ]);
+
+  res.status(200).render("dashboard/dashboard", {
     title: `جلوه‌های رنگین |  داشبورد`,
     active: "dashboard",
+    countOrders,
+    inpersonSales: inpersonSales[0].totalPrice,
+    onlineSales: onlineSales[0].totalPrice,
+    monthlySales: monthlySales[0].totalPrice,
+  });
+});
+
+exports.getNotifications = catchAsync(async (req, res, next) => {
+  const notiSales = await Sale.find({ state: "pending" });
+  const notiOrders = await Order.find({ state: "pending" });
+
+  const nots = [...notiSales, ...notiOrders];
+
+  nots.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB - dateA;
+  });
+
+  res.status(200).json({
+    status: "success",
+    items: nots,
+  });
+});
+
+exports.getMonthlyPrices = catchAsync(async (req, res, next) => {
+  const currentDate = new Date();
+  const startOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() - 11,
+    1
+  );
+  const endOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  );
+
+  const result = await Sale.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startOfMonth, $lte: endOfMonth },
+      },
+    },
+    {
+      $group: {
+        _id: { $month: "$createdAt" },
+        totalPrice: { $sum: "$price" },
+      },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+  ]);
+
+  const monthlyPrices = [];
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  for (let i = 0; i < 12; i++) {
+    const monthNumber = i + 1;
+    const resultItem = result.find((item) => item._id === monthNumber);
+    const monthName = monthNames[i];
+    const totalPrice = resultItem ? resultItem.totalPrice : 0;
+
+    monthlyPrices.push({ month: monthName, totalPrice });
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: monthlyPrices,
   });
 });
 
@@ -365,5 +540,44 @@ exports.getDashboardMe = catchAsync(async (req, res) => {
   res.status(200).render("dashboard/me", {
     title: `جلوه‌های رنگین | پروفایل`,
     me,
+  });
+});
+
+exports.getDashboardSales = catchAsync(async (req, res) => {
+  let salesType = "online";
+  if (req.query.type) {
+    salesType = req.query.type
+  }
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+  const sales = await Sale.find({ type: salesType })
+    .sort("-createdAt")
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .exec();
+  const count = await Sale.countDocuments({ type: salesType });
+  const numOfPages = Math.ceil(count / limit);
+  const next = page >= numOfPages ? false : page + 1;
+  const prev = page === 1 ? false : page - 1;
+  const currentPage = page;
+  const num = [];
+  const startIndex = (page - 1) * limit + 1;
+  if (numOfPages > 1) {
+    for (let i = 1; i <= numOfPages; i++) {
+      num.push(i);
+    }
+  }
+
+  res.status(200).render("dashboard/sales", {
+    title: `داشبورد | فروشات`,
+    active: "sales",
+    num: num.length > 0 ? num : 1,
+    next,
+    prev,
+    currentPage,
+    sales,
+    startIndex,
+    salesType
   });
 });

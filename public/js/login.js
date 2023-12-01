@@ -23,8 +23,8 @@ async function login(email, password) {
       }
     })
     .catch((err) => {
-      // showAlert("error", "ورود ناموفق! ایمیل یا رمز عبور اشتباه است");
-      console.log(err.response);
+      showAlert("error", "ورود ناموفق! ایمیل یا رمز عبور اشتباه است");
+      // console.log(err.response);
     });
 }
 

@@ -13,6 +13,7 @@ const userRouter = require("./routes/userRoutes");
 const orderRouter = require("./routes/orderRoutes");
 const artistRouter = require("./routes/artistRoutes");
 const cartRouter = require("./routes/cartRoutes");
+const salesRouter = require("./routes/salesRoutes");
 // const categoryRouter = require("./routes/categoryRoutes");
 // const commentRouter = require("./routes/commentRoutes");
 const AppError = require("./util/appError");
@@ -58,6 +59,17 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "script-src 'self' https://cdnjs.cloudflare.com https://js.stripe.com/v3/; " +
+    "script-src-elem 'self' https://cdnjs.cloudflare.com https://js.stripe.com/v3/; " +
+    "frame-src https://js.stripe.com/v3/; " +
+    "connect-src 'self'"
+  );
+  next();
+});
+
 // 3) ROUTES
 
 app.use("/", viewRouter);
@@ -66,6 +78,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/artists", artistRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/cart", cartRouter);
+app.use("/api/v1/sales", salesRouter);
 // app.use("/api/v1/categories", categoryRouter);
 // app.use("/api/v1/comments", commentRouter);
 app.all("*", (req, res, next) => {

@@ -11,8 +11,6 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     artwork: req.body.artwork,
     user: req.body.user,
   });
-  console.log(req.body);
-  console.log(itemInCart);
 
   let item = "";
   if (!itemInCart) {

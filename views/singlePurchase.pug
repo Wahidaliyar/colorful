@@ -1,0 +1,59 @@
+extends base
+
+block content 
+    section(class="pt-28 px-4")
+        div(class="relative w-full md:w-[60%] mx-auto text-right")
+            div(class="absolute top-0 left-0 bg-redd w-full h-[80%] -z-20")
+            p(class="font-dastnevis text-2xl md:text-6xl text-center z-10") سپاس از خرید شما!
+        
+        div(class="bg-white w-full md:w-[60%] mx-auto text-center px-2 py-2 md:px-6 md:py-4 mt-4 shadow-[1px_2px_4px_0_rgba(0,0,0,0.2)]")
+            div(class="border")
+                div(class="border-b font-IRanSans text-right px-1 md:px-2 py-1 md:py-2 bg-green-200")
+                    span(class="text-xs md:text-base") با تشکر. سفارش شما دریافت شده است.
+
+                div(class="flex flex-col md:flex-row justify-between px-2 py-1")
+                    div(class="flex md:flex-col items-center md:items-start font-IRanSans text-xs md:text-base py-2 md:pb-0 flex-1 border-b md:border-b-0 md:border-l")
+                        span(class="font-semibold ml-4") نمبر سفارش:
+                        span(class="md:mt-1") 3242342
+
+                    div(class="flex md:flex-col items-center md:items-start font-IRanSans text-xs md:text-base py-2 md:pb-0 flex-1 border-b md:border-b-0 md:border-l md:pr-2")
+                        span(class="font-semibold ml-4") تاریخ:
+                        span(class="md:mt-1")= date
+
+                    div(class="flex md:flex-col items-center md:items-start font-IRanSans text-xs md:text-base py-2 md:pb-0 flex-1 border-b md:border-b-0 md:border-l md:pr-2")
+                        span(class="font-semibold ml-4") مقدار:
+                        span(class="md:mt-1")= `${item.price} افغانی`
+
+                    div(class="flex md:flex-col items-center md:items-start font-IRanSans text-xs md:text-base py-2 md:pb-0 flex-1 border-b md:border-b-0 md:border-l md:pr-2")
+                        span(class="font-semibold ml-4") روش پرداخت:
+                        span(class="text-xs md:text-sm md:mt-1") پرداخت هنگام تحویل
+
+                    div(class="flex md:flex-col items-center md:items-start font-IRanSans text-xs md:text-base py-2 md:pb-0 flex-1 md:pr-2")
+                        span(class="font-semibold ml-4") حالت:
+                        if item.state === "pending"
+                            span(class="text-xs md:text-sm md:mt-1") درحال پردازش
+                        else if item.state === "delivering"
+                            span(class="text-xs md:text-sm md:mt-1") درحال تحویل
+                        else if item.state === "completed"
+                            span(class="text-xs md:text-sm md:mt-1") دریافت شده
+
+            div(class="border mt-10")
+                div(class="border-b font-IRanSans text-right px-1 md:px-2 py-1 md:py-2 bg-ored-200")
+                    span(class="text-xs md:text-base") جزئیات تابلو
+
+                div(class="px-2 md:px-3 py-2 md:py-3")
+                    div(class="flex flex-col md:flex-row justify-start items-center")
+                        div(class="text-right font-IRanSans text-sm md:text-base")
+                            p تابلوی نقاشی
+                                | 
+                                span(class="text-ored-700 font-semibold")= item.artwork.name
+                            p(class="mt-1.5")= `تکنیک ${item.artwork.category}`
+                            p(class="mt-1.5")= `ورق ${item.artwork.paperMaterial}`
+                            p(class="mt-1.5")= item.artwork.artist.name
+                            p(class="mt-1.5")= `${item.price} افغانی`
+                            p(class="mt-1.5")= `${item.artwork.width} * ${item.artwork.height} سانتی متر`
+
+                        div(class="w-36 h-48 md:mr-6 mt-2 md:mt-0")
+                            img(class="object-cover w-full h-full" src=`/imgs/artwork/${item.artwork.image}` alt="")
+
+                    div(class="font-IRanSans text-justify text-xs md:text-sm mt-2")= item.artwork.description

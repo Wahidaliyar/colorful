@@ -1,12 +1,13 @@
 const express = require("express");
 const viewController = require("./../controllers/viewController");
 const authController = require("./../controllers/authController");
+const salesController = require("./../controllers/salesController");
 
 const router = express.Router();
 
 router.use(authController.isLoggedIn);
 
-router.get("/", viewController.getHomePage);
+router.get("/", salesController.createSaleCheckout, viewController.getHomePage);
 router.get("/products/:id", viewController.getSingleProduct);
 router.get("/products", viewController.getProductsPage);
 router.get("/order", viewController.getOrderPage);
@@ -16,8 +17,13 @@ router.get("/artists/:id", viewController.getSingleArtist);
 router.get("/about", viewController.getAboutPage);
 router.get("/me/:id", viewController.getMePage);
 router.get("/cart", viewController.getCart);
+router.get("/purchase", viewController.getPurchase);
+router.get("/purchase/:id", viewController.getSinglePurchase);
 
 // DASHBOARD ROUTES
+router.get("/nots", viewController.getNotifications);
+router.get("/monthlyPrices", viewController.getMonthlyPrices);
+
 router.get(
   "/dashboard",
   authController.protect,
@@ -50,7 +56,6 @@ router.get(
   authController.restrictTo("admin"),
   viewController.getAdminSingleProduct
 );
-
 
 /////////////// USER
 router.get(
@@ -96,6 +101,13 @@ router.get(
   authController.protect,
   authController.restrictTo("admin"),
   viewController.getDashboardSingleOrder
+);
+
+router.get(
+  "/dashboard/sales",
+  authController.protect,
+  authController.restrictTo("admin"),
+  viewController.getDashboardSales
 );
 
 router.get("/dashboard/me/:id", viewController.getDashboardMe);

@@ -7,8 +7,11 @@ html
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer")
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js")
+        
+        block head
         title= title
-    body(class="bg-bg min-h-[100vh]")
+    body(class="bg-bg100 min-h-[100vh]")
 
     //- SIDEBAR
     include dashSidebar 
@@ -31,8 +34,12 @@ html
     script(src="/js/login.js" type="module")
     script(src="/js/search.js")
     script(src="/js/updateMe.js" type="module")
+    script(src="/js/notification.js" type="module")
+
+    if active === 'dashboard'
+        script(src="/js/chart.js")
+
     if active === 'products'
-        script(src="/js/adminShowSingleProduct.js") 
         script(src="/js/addArtwork.js" type="module")
         script(src="/js/deleteArtwork.js" type="module")
         script(src="/js/updateArtwork.js" type="module")
@@ -43,4 +50,6 @@ html
     if active === 'users'
         script(src="/js/deleteUser.js" type="module") 
     if active === 'orders'
-        script(src="/js/deleteOrder.js" type="module") 
+        script(src="/js/deleteOrder.js" type="module")
+    if active === "sales"
+        script(src="/js/salesTable.js")

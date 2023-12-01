@@ -20,6 +20,11 @@ const artworkSchema = new mongoose.Schema(
     width: Number,
     paperMaterial: String,
     image: String,
+    state: {
+      type: String,
+      enum: ["available", "sold"],
+      default: "available",
+    },
     description: {
       type: String,
       trim: true,
